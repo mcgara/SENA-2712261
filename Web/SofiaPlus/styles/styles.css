@@ -1,0 +1,288 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* class: container-flex-center */
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------ Encabezado logos ------ */
+
+#encabezado {
+  height: 133px;
+  justify-content: space-around;
+}
+
+/* ------ Menu de navegacion ------ */
+
+#menu {
+  background-color: #5EB319;
+}
+
+#menu ul {
+  height: 60px;
+  list-style: none;
+}
+
+#menu a {
+  height: 60px;
+  width: 170px;
+  margin: auto 10px;
+  background-color: #5EB319;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+#menu a:hover {
+  background-color: #469C00;
+}
+
+/* ------ Contenido principal ------ */
+
+main {
+  flex-flow: column nowrap;
+}
+
+/* ------ Encabezado del contenido ------ */
+
+#main-encabezado {
+  height: 135px;
+  width: 85%;
+}
+
+#titulo {
+  font-size: 23px;
+  color: #01A6BD; 
+  margin-right: 30px;
+}
+
+#aviso-cronograma {
+  height: 70px;
+  width: 360px;
+  margin-left: 30px;
+  background: #E6E6E6;
+  border-radius: 5px;
+}
+
+#aviso-cronograma a {
+  height: 70px;
+  background: aqua;
+  border: none;
+  text-align: center;
+  text-justify: center;
+  padding-top: 100px;
+  font-size: 13.5px;
+  padding: 0 5px;
+  text-decoration: none;
+}
+
+#aviso-cronograma a:first-child {
+  height: 60px;
+  width: 120px;
+  margin: 5px;
+  background-color: #5EB319;
+  color: white;
+}
+
+#aviso-cronograma a:last-child {
+  height: 68px;
+  width: 220px;
+  margin-right: 1px;
+  border-radius: 0 5px 5px 0;
+  background-color: #F5F5F5;
+  color: #01A6BD;
+  font-weight: bold;
+}
+
+#aviso-cronograma a:first-child:hover {
+  background-color: #469C00;
+}
+#aviso-cronograma a:last-child:hover {
+  color: #5EB319;
+}
+
+/* ------ Lateral de redes sociales ------ */
+
+#lateral-redes-sociales {
+  flex-direction: column;
+  position: fixed;
+  height: 40%;
+  justify-content: space-around;
+  top: 192px;
+  right: 2px;
+}
+
+/* ------ Menu de links oferta ------ */
+
+#menu-oferta {
+  width: 85%;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+}
+
+#menu-oferta ul {
+  height: 160px;
+  justify-content: space-around;
+  list-style: none;
+}
+
+#menu-oferta a {
+  height: 160px;
+  width: 175px;
+  flex-direction: column;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  font-size: 15px;
+  color: #01A6BD;
+}
+
+#menu-oferta a div {
+  height: 44%;  
+  width: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #5EB319;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+#menu-oferta a:hover {
+  color: #5EB319;
+  background-color: #EEE;
+}
+
+#menu-oferta a div:hover {
+  background-color: #469C00;
+}
+
+/* ------ Formulario Buscador de Oferta ------ */
+
+#main-formularios {
+  width: 85%;
+  height: 366px;
+  align-items: flex-end;
+  background: green;
+}
+
+#busqueda-oferta {
+  flex-direction: column;
+  height: 346px;
+  width: 750px;
+  justify-content: space-between;
+}
+
+#busqueda-formulario {
+  height: 240px;
+  width: 710px;
+  padding: 20px;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: #777;
+}
+
+#busqueda-formulario div:first-child {
+  flex-direction: column;
+  height: 60%;
+}
+
+#busqueda-formulario label {
+  color: white;
+}
+
+.box-input {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+}
+
+#sl-tipo-oferta {
+  width: 135px;
+  border-radius: 5px 0 0 5px;
+  background-color: #DCDCDC;
+}
+
+#in-oferta {
+  width: 575px;
+  border-radius: 0 5px 5px 0;
+}
+
+#sl-tipo-oferta, #in-oferta, #in-lugar {
+  position: relative;
+  top: 12px;
+  box-sizing: border-box;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 16px;
+  color: #777;
+}
+
+#sl-tipo-oferta {
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+#in-oferta::placeholder, #in-lugar::placeholder {
+  font-style: italic;
+}
+
+#sl-tipo-oferta:focus, #in-oferta:focus, #in-lugar:focus {
+  outline: none;
+  box-shadow: 1px 1px 2px 1px white;
+}
+
+#sl-tipo-oferta option:first-child {
+  background-color: blue;
+}
+
+#btn-buscar {
+  width: 145px;
+  position: relative;
+  left: 180px;
+  background-color: #5EB319;
+  color: white;
+  font-size: 16px;
+}
+
+#btn-buscar:hover {
+  background-color: #469C00;
+}
+
+.btn-sofia div:first-child {
+  width: 675px;
+  border-radius: 5px 0 0 5px;
+  background-color: #01A6BD;
+  color: white;
+  font-size: 17px;
+}
+
+.btn-sofia div:last-child {
+  width: 75px;
+  border-radius: 0 5px 5px 0;
+  background-color: #0090A5;
+}
+
+.btn-sofia div:first-child:hover {
+  background-color: #0090A5;
+}
+
+.btn-sofia div:last-child:hover {
+  background-color: #01A6BD;
+}

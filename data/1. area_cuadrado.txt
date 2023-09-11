@@ -1,0 +1,21 @@
+ENUNCIADO
+
+Realice un algoritmo para determinar el area de un cuadrado.
+
+ENUNCIADO CORTO
+
+Determinar area de un cuadrado.
+
+MENSAJES DE ENTRADA
+
+lado: float = Ingrese la medida de un lado del cuadrado: 
+
+PY PROCESO
+
+lado = lado ** 2
+
+MENSAJE DE SALIDA
+
+El area del cuadrado es {lado:.2f} metros cuadrados.
+
+

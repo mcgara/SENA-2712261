@@ -1,0 +1,149 @@
+<div class="container-fluid py-3 px-2 px-sm-3 px-md-4 px-xl-5">
+
+  <div
+    is="api-utils-set-attrs-response"
+    query="#spinner-loading"
+    add-attrs='["hidden"]'
+  >
+    <div
+      is="api-utils-set-attrs-response"
+      query="#main-ecommerce"
+      rm-attrs='["hidden"]'
+      id="spinner-loading"
+      class="position-fixed start-50 top-50 z-3 translate-middle"
+    >
+      <h2 class="d-flex align-items-center">
+        <span class="spinner-border p-3 me-3" role="status"></span>
+        Loading...
+      </h2>
+    </div>
+  </div>
+
+
+  <main id="main-ecommerce" hidden>
+
+    <h1 class="text-center my-3 my-md-4 display-4 fw-semibold">API Ecommerce Products</h1>
+
+    <div is="api-category-generator" build>
+      <div is="api-category">
+
+        <h1 is="api-category-title" class="text-center my-4 my-md-5 placeholder-glow">
+          <span class="placeholder col-3 rounded-4"></span>
+        </h1>
+
+        <div
+          is="api-product-generator"
+          class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gy-4"
+        >
+
+          <div is="api-product" class="col">
+            <div
+              is="api-product-modal-open"
+              to-modal="#modal-product"
+              data-bs-target="#modal-product"
+              data-bs-toggle="modal"
+              class="card h-100 border-0 p-3"
+            >
+              <img
+                is="api-product-img"
+                class="card-img-top object-fit-contain rounded-3"
+                height="230vh"
+                src="./placeholder-img.png"
+              />
+
+              <div class="card-body d-flex align-items-center">
+                <h1
+                  is="api-product-title"
+                  class="card-title placeholder-glow w-100 fs-4"
+                >
+                  <span class="placeholder col-11 rounded-4"></span>
+                  <span class="placeholder col-6 rounded-4"></span>
+                </h1>
+              </div>
+
+              <div class="card-footer border-0 rounded-4">
+                <p is="api-product-price" class="fs-5 placeholder-glow my-auto">
+                  <span class="placeholder col-5 rounded-4"></span>
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+  
+
+  <div is="api-product-modal" class="modal fade" id="modal-product">
+    <div
+      class="modal-dialog modal-dialog-centered modal-xl mx-auto"
+      style="max-width: 100vw; width: 90%"
+    >
+      <div class="modal-content">
+        <div class="modal-header position-absolute w-100 border-0">
+          <button type="button" class="btn-close p-3 z-3" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="card border-0">
+            <div class="row row-cols-1 row-cols-md-2 g-0">
+              <div class="col col-md-4 align-items-center">
+                <img
+                  is="api-product-img"
+                  class="img-fluid object-fit-contain w-100"
+                  src="./placeholder-img.png"
+                  style="height: 85vh"
+                />
+              </div>
+              <div class="col col-md-8 py-1 py-md-2 px-1 px-md-4 d-flex flex-column justify-content-evenly">
+                <div class="card-body p-0 py-md-2">
+                  <h1 class="card-title py-1 py-md-2">
+                    <h1 is="api-product-title" class="fs-2 placeholder-glow">
+                      <span class="placeholder col-11 rounded-4"></span>
+                      <span class="placeholder col-6 rounded-4"></span>
+                    </h1>
+                    <p
+                      is="api-product-category"
+                      class="badge bg-secondary fs-5 w-25 placeholder-glow"
+                    >
+                      <span class="placeholder col-12 rounded-4"></span>
+                    </p>
+                  </h1>
+
+                  <p
+                    is="api-product-text"
+                    class="card-text py-1 py-md-2 fs-5 placeholder-glow"
+                  >
+                    <span class="placeholder col-11 rounded-4"></span>
+                    <span class="placeholder col-10 rounded-4"></span>
+                    <span class="placeholder col-11 rounded-4"></span>
+                    <span class="placeholder col-9 rounded-4"></span>
+                    <span class="placeholder col-8 rounded-4"></span>
+                    <span class="placeholder col-4 rounded-4"></span>
+                  </p>
+                </div>
+
+                <div class="card-footer border-0 rounded-4">
+                  <p is="api-product-price" class="fs-3 placeholder-glow">
+                    <span class="placeholder col-4 rounded-4"></span>
+                  </p>
+                </div>
+
+                <button is="api-product-add-cart" class="btn btn-primary">
+                  <p class="icon-link h-100 fs-5">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    Add To Cart
+                  </p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

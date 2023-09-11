@@ -1,0 +1,123 @@
+:root {
+  --bg-primary: #E8F5FF;
+  --bg-secondary: #FFF;
+  --bg-calc-primary: #AFAEAE;
+  --bg-calc-secondary: #04509E;
+  --bg-calc-tertiary: #4a7f9d;
+  --border-color-1: #A6A6A6;
+  --border-color-2: #555;
+  --bg-calc-numpad: #EEE;
+  --bg-calc-danger: #E80101;
+  --bg-calc-operator: #7F7F7F;
+  --bg-calc-hover-1: #FFA7A7;
+  --bg-calc-hover-2: #CE0101;
+}
+
+.bg-primary {
+  background-color: var(--bg-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary) !important;
+}
+
+.text-primary {
+  color: var(--bg-calc-primary) !important;
+}
+
+.text-primary-h {
+  color: var(--bg-calc-primary) !important;
+}
+
+.text-primary-h:hover {
+  color: var(--bg-calc-danger) !important;
+  cursor: pointer;
+}
+
+.text-tertiary {
+  color: var(--bg-calc-tertiary) !important;
+}
+
+.text-tertiary:hover {
+  color: var(--bg-calc-secondary) !important;
+}
+
+.border-primary {
+  border-color: var(--bg-calc-primary) !important;
+}
+
+.border-top {
+  border-color: var(--bg-calc-primary) !important;
+}
+
+.border-secondary {
+  border-color: var(--bg-calc-secondary) !important;
+}
+
+#pad button {
+  width: 95%;
+  height: 125%;
+  color: var(--bg-secondary);
+  background-color: var(--bg-calc-primary);
+  border-color: var(--border-color-2) !important;
+  font-size: 24px;
+  text-shadow: 1px 1px 1px var(--border-color-2);
+}
+
+#pad button:hover {
+  background-color: var(--bg-calc-operator);
+  color: var(--bg-calc-hover-1);
+}
+
+#pad button[key="equals"],
+#pad button[key="plus"] {
+  height: 283% !important;
+}
+
+.pad-operators {
+  background-color: var(--bg-calc-operator) !important;
+  font-weight: bold;
+}
+
+.pad-danger {
+  background-color: var(--bg-calc-danger) !important;
+}
+
+.pad-nums {
+  background-color: var(--bg-calc-numpad) !important;
+  font-weight: bold;
+  color: var(--bg-calc-secondary) !important;
+}
+
+.pad-nums:hover {
+  background-color: var(--bg-calc-primary) !important;
+  color: var(--bg-calc-danger) !important;
+}
+
+#pad button[key="right-arrow"],
+#pad button[key="percnt"],
+.pad-operators,
+.pad-danger,
+.pad-nums {
+  font-size: 28px !important;
+}
+
+.pad-operators:hover {
+  background-color: var(--bg-calc-primary) !important;
+}
+
+.pad-danger:hover {
+  background-color: var(--bg-calc-hover-2) !important;
+}
+
+#pad button[key="equals"] {
+  background-color: var(--bg-calc-secondary) !important;
+}
+
+#pad button[key="equals"]:hover {
+  background-color: var(--bg-calc-tertiary) !important;
+}
+
+#calc-sc-num {
+  font-size: 68px !important;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal de oferta educativa SENA :: Sofia Plus</title>
+    <link rel="icon" type="image./x-icon" href="./public/favicon.ico" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
+    <header class="container" id="encabezado">
+      <div id="img-logo"><img src="./public/logo.png" /></div>
+      <div id="img-mintrabajo"><img src="./public/mintrabajo.png" /></div>
+      <div class="container">
+        <a id="img-ingles" href="#"><img src="./public/Boton-Ingles2.png" /></a>
+        <a id="img-vocacional" href="#"><img src="./public/vocacional.jpg" /></a>
+      </div>
+    </header>
+
+    <nav id="menu">
+      <ul class="container">
+        <li><a class="container" href="#">Inicio</a></li>
+        <li><a class="container" href="#">Buscar oferta</a></li>
+        <li><a class="container" href="#">Presentar pruebas de seleccion</a></li>
+        <li><a class="container" href="#">Certificados</a></li>
+        <li><a class="container" href="#">Ayuda y soporte</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <section class="container" id="main-encabezado">
+        <h1 id="titulo">Bienvenido a SofiaPlus, el portal de oferta educativa del SENA</h1>
+        <div class="container" id="aviso-cronograma">
+          <a class="container" href="#">Del 25 de mayo al 01 de junio de 2023</a>
+          <a class="container" href="#">
+            Cronograma convocatoria modalidad titulada presencial y a distancia 2023
+          </a>
+        </div>
+      </section>
+
+      <aside id="lateral-redes-sociales" class="container">
+        <a href="#"><img src="./public/social/social_sena.jpg" /></a>
+        <a href="#"><img src="./public/social/socia_fb.jpg" /></a>
+        <a href="#"><img src="./public/social/socia_tw.jpg" /></a>
+        <a href="#"><img src="./public/social/social_youtube.jpg" /></a>
+        <a href="#"><img src="./public/social/social_instagram.jpg" /></a>
+      </aside>
+
+      <nav id="menu-oferta">
+        <ul class="container">
+          <li>
+            <a 
+            id="btn-carreras-presenciales"
+            href="#"
+            class="container"
+            >
+              <div class="container"><img src="./public/tecnicas.png" /></div>
+              Carreras Presenciales
+            </a>
+          </li>
+          <li>
+            <a 
+            id="btn-carreras-virtuales"
+            href="#"
+            class="container"
+            >
+              <div class="container"><img src="./public/tecnicavirtual.png" /></div>
+              Carreras Virtuales
+            </a>
+          </li>
+          <li>
+            <a 
+            id="btn-cursos-cortos-presenciales"
+            href="#"
+            class="container"
+            >
+              <div class="container"><img src="./public/cursoscortos.png" /></div>
+              Cursos Cortos Presenciales
+            </a>
+          </li>
+          <li>
+            <a 
+            id="btn-cursos-cortos-virtuales"
+            href="#"
+            class="container"
+            >
+              <div class="container"><img src="./public/virtual.png" /></div>
+              Cursos Cortos Virtuales
+            </a>
+          </li>
+          <li>
+            <a 
+            id="btn-cursos-ingles"
+            href="#"
+            class="container"
+            >
+              <div class="container"><img src="./public/ingles.png" /></div>
+              Cursos de Inglés
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="container" id="main-formularios">
+        <div class="container" id="busqueda-oferta">
+          <form id="busqueda-formulario" class="container">
+            <div class="container">
+              <div>
+                <label for="in-oferta">¿Qué le gustaría estudiar?</label>
+                <div class="container box-input">
+                  <select id="sl-tipo-oferta" class="box-input">
+                    <option id="sl-tp">Todos los Tipos</option>
+                    <option id="sl-tp-ct">Carreras Técnicas</option>
+                    <option id="sl-tp-cc">Cursos Cortos</option>
+                    <option id="sl-tp-fv">Formación Virtual</option>
+                    <option id="sl-tp-fe">Formación Empresas</option>
+                  </select>
+                  <input type="text" id="in-oferta" class="box-input" placeholder="Ej: Cocina, Contabilidad" />
+                </div>
+              </div>
+  
+              <div class="box-input">
+                <label for="in-lugar">¿En donde le gustaría estudiar?</label>
+                <input type="text" id="in-lugar" class="box-input" placeholder="Ej: Cali, Cartagena" />
+              </div>
+            </div>
+
+            <div>
+              <input type="checkbox" id="chk-todos-programas" />
+              <label for="chk-todos-programas">Todos los programas</label>
+              <div>
+                <input type="checkbox" id="chk-solo-oferta" />
+                <label for="chk-todos-oferta">Solo programas con oferta de formación disponible</label>
+                <button id="btn-buscar" type="submit" class="box-input">Buscar</button> 
+              </div>
+            </div>
+          </form>
+          
+          <button class="container box-input btn-sofia" id="btn-busqueda-asistida">
+            <div class="container box-input" ><p>¿Necesitas una busqueda mas sencilla?</p></div>
+            <div class="container box-input"><img src="./public/go.png"></div>
+          </button>
+        </div>
+
+        <div class="container" id="login">
+          
+        </div>
+      </section>
+      <p>Pariatur labore est amet sint sint minim ex eiusmod sint exercitation.</p>
+    </main>
+  </body>
+

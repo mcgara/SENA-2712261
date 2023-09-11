@@ -1,0 +1,21 @@
+1. "la medida de un lado del cuadrado"
+2. "el radio del circulo"
+3. "el radio de la esfera"
+4. ["el radio del cono", "la altura del cono"]
+5. "la medida de un lado del cubo"
+6. ["la base del rectangulo", "la altura del rectangulo"]
+7. "los minutos a convertir"
+8. "los grados Celsius de la temperatura"
+9. "los grados Fahrenheit de la temperatura"
+10. ["el monto a depositar $", "la tasa de interes anual 0 a 100 %", "la cantidad de años de inversion"]
+11. ["el costo por metro del corte", "la medida del corte de tela en metros"]
+12. ["el salario a pagar al trabajador", "la cantidad de hijos del trabajador"]
+13. "el saldo inicial del ahorrista"
+14. "la cantidad de horas de trabajo del profesor"
+15. ["la cantidad de metros cuadrados", "el monto de la cuota inicial"]
+16. "el monto en pesos colombianos"
+17. ["el monto inicial de la tarjeta", "el monto final de la tarjeta"]
+18. "la cantidad de fotos tomadas"
+19. ["la cantidad de kilometros recorridos", "la cantidad de minutos transcurridos"]
+20. "el sueldo base del trabajador"
+21. ["el precio de la parcela", "la cuota inicial del pago de la parcela"]
