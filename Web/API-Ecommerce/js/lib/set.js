@@ -1,4 +1,4 @@
-import { GetComponentToHTML } from "./get";
+import { GetComponentToHTML } from "./get.js";
 import { Component } from "./component.js"
 
 export class SetToHead extends GetComponentToHTML {

@@ -21,7 +21,8 @@ class VenezuelaFood extends StatelessWidget {
 
   Container background(MediaQueryData context) {
     return Container(
-      height: context.size.height - 250,
+      width: context.size.width,
+      height: context.size.height - 230,
       color: const Color(0xFF92C47D),
       child: Image.asset('assets/images/fondo.png', scale: 1.7)
     );
@@ -50,10 +51,10 @@ class VenezuelaFood extends StatelessWidget {
 
   Positioned header(MediaQueryData context) {
     return Positioned(
-      top: 45,
+      top: 35,
       width: context.size.width,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [profile(), const SizedBox(width: 20), label()],
       ),
     );
@@ -90,7 +91,7 @@ class VenezuelaFood extends StatelessWidget {
     return Positioned(
       width: context.size.width,
       height: 260,
-      top: context.size.height - 370,
+      top: context.size.height - 330,
       child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 1.5),
         scrollDirection: Axis.horizontal,
@@ -104,8 +105,12 @@ class VenezuelaFood extends StatelessWidget {
     MediaQueryData dataContext = MediaQuery.of(context);
 
     return Stack(
+      alignment: Alignment.topCenter,
       children: [
-        SizedBox(height: dataContext.size.height - dataContext.viewPadding.top),
+        SizedBox(
+          width: dataContext.size.width,
+          height: dataContext.size.height - dataContext.viewPadding.top
+        ),
         background(dataContext),
         header(dataContext),
         listCardFood(dataContext),

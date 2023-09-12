@@ -62,15 +62,15 @@ export class GetComponentToHTML extends GetComponent {
   }
   static get toTag() { return "body"; }
 
-  get inserTo() { return this.getAttribute("insert-to") ?? "beforeend"; }
-  set inserTo(value) { this.setAttribute("insert-to", value); }
+  get insertTo() { return this.getAttribute("insert-to") ?? "beforeend"; }
+  set insertTo(value) { this.setAttribute("insert-to", value); }
   
   constructor () { super(); }
 
   requestHandle() {
     const tag = GetComponentToHTML.toTag;
     const text = this.request.responseText;
-    if (this.inserTo.toLowerCase() === "inner") document[tag]?.innerHTML = text;
-    else try { document[tag]?.insertAdjacentHTML(this.inserTo, text); } catch {}
+    if (this.insertTo.toLowerCase() === "inner") document[tag].innerHTML = text;
+    else try { document[tag]?.insertAdjacentHTML(this.insertTo, text); } catch {}
   }
 }
