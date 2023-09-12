@@ -1,4 +1,4 @@
-import APIFakeStore from '../../api.js';
+import APIFakeStore from "../../api.js";
 
 export const MixFakeStore = ClassHTMLElement => class extends ClassHTMLElement {
   build() { return; }

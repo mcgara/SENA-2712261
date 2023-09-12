@@ -1,4 +1,4 @@
-import Mix from './mixins.js';
+import Mix from "./mixins.js";
 
 export class FakeStore extends Mix.FakeStore(HTMLDivElement) {
   static tag = "api-fakestore";

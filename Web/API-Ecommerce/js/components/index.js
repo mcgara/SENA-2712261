@@ -1,7 +1,7 @@
-import FakeStore from './fakeStore.js';
-import Product from './product.js';
-import Category from './category.js';
-import Utils from './utils.js';
+import FakeStore from "./fakeStore.js";
+import Product from "./product.js";
+import Category from "./category.js";
+import Utils from "./utils.js";
 
 const components = [
   FakeStore.Abstract,

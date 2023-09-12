@@ -1,6 +1,6 @@
-import { generateRandom } from '../utils.js';
-import { FakeStore } from './fakeStore.js';
-import Mix from './mixins.js';
+import { generateRandom } from "../utils.js";
+import { FakeStore } from "./fakeStore.js";
+import Mix from "./mixins.js";
 
 export class Product extends FakeStore {
   static tag = "api-product";
@@ -184,7 +184,7 @@ export class AddToCart extends Mix.Product(HTMLButtonElement) {
 
   addToCard() {
     this.product.then(product => {
-      alert(`Producto '${product.title}' añadido al carrito.`);
+      alert(`Producto "${product.title}" añadido al carrito.`);
     })
   }
 

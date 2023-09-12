@@ -1,5 +1,5 @@
-import TJSON from './jsonTemplates.js';
-import { shuffleArray, setCountIndex } from '../utils.js';
+import TJSON from "./jsonTemplates.js";
+import { shuffleArray, setCountIndex } from "../utils.js";
 
 export const APIProducts = (async function () {
   const response = await fetch("https://fakestoreapi.com/products"); // Api response Error 502 Bad GateWay.

@@ -1,6 +1,6 @@
-import { FakeStore } from './fakeStore.js';
-import Product from './product.js';
-import Mix from './mixins.js';
+import { FakeStore } from "./fakeStore.js";
+import Product from "./product.js";
+import Mix from "./mixins.js";
 
 export class Category extends FakeStore {
   static tag = "api-category";

@@ -1,4 +1,4 @@
-import { FakeStore } from './fakeStore.js'
+import { FakeStore } from "./fakeStore.js"
 
 export class SetAttrsOnEvent extends FakeStore {
   static tag = "api-utils-set-attrs-event";
