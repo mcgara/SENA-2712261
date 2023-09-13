@@ -1,26 +1,21 @@
 export const MixComponent = (ClassHTMLElement=HTMLElement) => class extends ClassHTMLElement {
   static Mix = MixComponent;
-  static setObservedAttributes = new Set(["build"]);
+  static setObservedAttributes = new Set(["build", "no-build"]);
   static get observedAttributes() { return Array.from(this.setObservedAttributes); }
   static get tagName() { return "c-component"; }
   static get tagExtends() { return undefined; }
 
-  build() {}
+  get toBuild() { return this.getAttribute("build") !== "no-build"; }
+  set toBuild(value) { this.setAttribute("build", value); }
+  get noBuild() { return this.getAttribute("no-build") !== null; }
+  set noBuild(value) { this.setAttribute("no-build", value); }
 
-  #presetBuild() {
-    const build = this.build;
-    if (typeof build !== "function") throw TypeError("build most be function type.");
-    this.build = () => {
-      const noBuild = this.getAttribute("no-build");
-      if (noBuild !== null) return;
-      build();
-    }
-  }
+  build() {}
 
   constructor () {
     super();
-    this.#presetBuild();
-    if (this.getAttribute("build") !== "no-build") this.build();
+    if (this.noBuild) return;
+    if (this.toBuild) this.build();
   }
 
   connectedCallback() {}

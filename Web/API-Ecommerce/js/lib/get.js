@@ -14,7 +14,7 @@ export class Get extends Component {
 
   get url() { return Get.root + this.getAttribute("url"); }
   set url(value) { this.setAttribute("url", value); }
-  get method() { return this.getAttribute("method").toUpperCase(); }
+  get method() { return (this.getAttribute("method") ?? "GET").toUpperCase(); }
   set method(value) { this.setAttribute("method", value); }
   get async() { return !!this.getAttribute("async"); }
   set async(value) { this.setAttribute("async", value); }
@@ -24,25 +24,30 @@ export class Get extends Component {
   set password(value) { this.setAttribute("password", value); }
 
   request;
-  requestHandle() {}
-  requestOnReadyState() {
-    const status = this.request.status;
-    if (this.request.readyState !== XMLHttpRequest.DONE) return;
-    if (!(status === 0 || (status >= 200 && status < 400))) return;
-    this.requestHandle();
+  setRequest() {
+    if (Get.cache.has(this.url)) this.request = Get.cache.get(this.url);
+    if (this.request === undefined) this.request = new XMLHttpRequest();
   }
-
+  requestIsReady() {
+    const isDone = this.request.readyState === XMLHttpRequest.DONE;
+    const status = this.request.status;
+    return isDone && (status === 0 || (status >= 200 && status < 400))
+  }
+  requestHandle() {}
+  
   constructor () {
     super();
     if (Get.cache.has(this.url)) this.request = Get.cache.get(this.url);
     if (this.request === undefined) this.request = new XMLHttpRequest();
-    this.requestOnReadyState();
   }
 
   build() {
-    this.request.open(this.method, this.url, this.async, this.username, this.password);
-    this.request.onreadystatechange = this.requestOnReadyState;
-    this.send();
+    this.setRequest();
+    if (!this.requestIsReady()) {
+      this.request.open(this.method, this.url, this.async, this.username, this.password);
+    }
+    this.request.onreadystatechange = this.requestHandle;
+    this.request.send();
   }
 }
 

@@ -1,3 +1,4 @@
-import { SetTitle } from "./lib/set.js"
+import { SetTitle, SetPage } from "./lib/set.js"
 
 SetTitle.define();
+SetPage.define();
