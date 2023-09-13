@@ -10,10 +10,12 @@ export const MixComponent = (ClassHTMLElement=HTMLElement) => class extends Clas
   get noBuild() { return this.getAttribute("no-build") !== null; }
   set noBuild(value) { this.setAttribute("no-build", value); }
 
+  presetBuild() {}
   build() {}
 
   constructor () {
     super();
+    this.presetBuild();
     if (this.noBuild) return;
     if (this.toBuild) this.build();
   }
@@ -25,23 +27,13 @@ export const MixComponent = (ClassHTMLElement=HTMLElement) => class extends Clas
 
   static presetObservedAttributes() {}
 
-  static presetAttributeChangedCallback() {
-    const attributeChangedCallback = this.prototype.attributeChangedCallback;
-    this.prototype.attributeChangedCallback = (name, oldValue, newValue) => {
-      attributeChangedCallback(name, oldValue, newValue);
-      this.prototype.build();
-    }
-  }
-
   static presetDefine() {}
 
   static define(registry=window.customElements, name=this.tagName, tagExtends=this.tagExtends) {
     this.presetDefine();
     this.presetObservedAttributes();
-    this.presetAttributeChangedCallback();
     registry.define(name, this, { extends: tagExtends });
   }
 }
 
-
-export class Component extends MixComponent() { constructor () { super(); } }
+export class Component extends MixComponent() {}
