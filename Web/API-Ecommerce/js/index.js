@@ -1,5 +1,10 @@
-import { SetTitle, SetPage, SetToHead } from "./lib/setHTML.js"
+import * as Utils from "./utils.js"
+import API from "./api/index.js"
+// import "./components/index.js"
 
-SetTitle.define();
-SetPage.define();
-SetToHead.define();
+// API.FakeStore.products().then(products => console.log(products))
+
+export default {
+  API,
+  Utils
+}
