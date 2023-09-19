@@ -1,6 +1,6 @@
 /** @type {import("./abstract").MixComponent} */
 export const MixComponent = ClassHTMLElement =>
-// @ts-ignore
+// @ts-ignore // Bug: ts(2545)
 class extends ClassHTMLElement {
   static mix = MixComponent;
   static get tagName() { return undefined; }

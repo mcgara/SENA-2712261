@@ -1,13 +1,13 @@
 import type { Component } from "./abstract"
 import Get = require("./get")
 
-export const MixFrom: <T extends Component>(ClassHTMLElement: T) => T & {
+declare const MixFrom: <T extends Component>(ClassHTMLElement: T) => T & {
   mix: typeof MixFrom
   new (...args: any[]): {
-    get fromThis(): string | null
-    get fromQuery(): string | null
+    get fromThis(): string
+    get fromQuery(): string
     set fromQuery(value)
-    get fromProp(): string | null
+    get fromProp(): string
     set fromProp(value)
   
     from: HTMLElement | null
@@ -20,7 +20,7 @@ export const From: From
 
 
 
-export const MixFromElement: <T extends From>(ClassHTMLElement: T) => T & {
+declare const MixFromElement: <T extends From>(ClassHTMLElement: T) => T & {
   mix: typeof MixFromElement
 }
 export type MixFromElement = typeof MixFromElement
@@ -29,28 +29,28 @@ export const FromElement: FromElement
 
 
 
-export const MixFromRequest: <T extends Component>(ClassHTMLElement: T) => T & {
+declare const MixFromRequest: <T extends Component>(ClassHTMLElement: T) => T & {
   mix: typeof MixFromRequest
   cache: Map<string, XMLHttpRequest>
 
   new (...args: any[]): {
-    get url(): string | null
+    get url(): string
     set url(value)
-    get method(): string | null
+    get method(): string
     set method(value)
-    get sync(): string | null
+    get sync(): string
     set sync(value)
-    get username(): string | null
+    get username(): string
     set username(value)
-    get password(): string | null
+    get password(): string
     set password(value)
 
     from: XMLHttpRequest
     data: string | null
 
-    requestIsReady(): void
-    requestOnChanged(): void
-    requestRefresh(): void
+    fromIsReady(): void
+    fromOnChanged(): void
+    fromRefresh(): void
   }
 }
 export type MixFromRequest = typeof MixFromRequest

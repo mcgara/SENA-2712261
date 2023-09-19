@@ -1,10 +1,10 @@
 export type Constructor<T = HTMLElement> = new (...args: any[]) => T;
 
-export const MixComponent: <T extends Constructor>(ClassHTMLElement: T) => T & {
+declare const MixComponent: <T extends Constructor>(ClassHTMLElement: T) => T & {
   mix: typeof MixComponent
-  get tagName(): string | undefined
+  get tagName(): string
   get tagPrefix(): string
-  get tagExtends(): string | undefined
+  get tagExtends(): string
   attributes: Set<string>
   get observedAttributes(): string[]
   presetAttributes(): void
@@ -18,9 +18,9 @@ export const MixComponent: <T extends Constructor>(ClassHTMLElement: T) => T & {
   new (...args: any[]): {
     isRunConnectedCallback: boolean;
   
-    get toBuild(): string | null
+    get toBuild(): string
     set toBuild(value)
-    get noBuild(): string | null
+    get noBuild(): string
     set noBuild(value)
   
     build(): void

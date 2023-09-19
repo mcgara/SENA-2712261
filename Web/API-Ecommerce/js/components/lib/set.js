@@ -5,7 +5,7 @@ import Get from "./get.js";
 export const MixSetTo = ClassHTMLElement =>
 // @ts-ignore
 class extends ClassHTMLElement {
-  static Mix = MixSetTo;
+  static mix = MixSetTo;
   static presetAttributes() {
     super.presetAttributes();
     this.attributes.add("to-this");
@@ -25,67 +25,80 @@ class extends ClassHTMLElement {
   get removeThis() { return this.getAttribute("remove-this"); }
   set removeThis(value) { this.setAttribute("remove-this", value); }
 
+  /** @type {HTMLElement | null} */
   to;
+  /** @type {string | null} */
   data;
 
   constructor () {
     super();
-    if (typeof super.data === "undefined") this.data = null;
-    else this.data = super.data;
-    this.to = this;
+    this.data = this.data ?? null
+    this.to = this
   }
 
   build() {
     super.build();
-    if (this.noBuild || this.data === null) return;
-
+    if (!this.noBuild || this.data === null) return;
     if (!this.toThis) this.to = null;
     if (this.to === null) this.to = this.querySelector(this.toQuery);
     if (this.to === null) return;
 
+    if (this.insertTo === null) this.insertTo = "inner";
     if (this.toProp) this.to[this.toProp] = this.data;
     else if (this.insertTo === "inner") this.to.innerHTML = this.data;
     else if (this.insertTo === "outer") this.to.outerHTML = this.data;
+    // @ts-ignore // insertTo as InsertPosition or implement TypeGuard
     else this.to.insertAdjacentHTML(this.insertTo, this.data);
     if (!this.toThis && this.removeThis) this.remove();
   }
 }
 
-export const MixSetToElement = (ClassHTMLElement=HTMLElement) =>
-class extends MixSetTo(Get.FromElement.mix(ClassHTMLElement)) {
-  static Mix = MixSetToElement;
+/** @type {ComponentSet.MixToElement} */
+export const MixSetToElement = ClassHTMLElement =>
+class extends ClassHTMLElement {
+  static mix = MixSetToElement;
 
   connectedCallback() {
     super.connectedCallback();
     this.build();
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(_name, _oldValue, _newValue) {
     if (!this.isRunConnectedCallback) return;
     this.build();
   }
 }
 
-export const MixSetRequestToElement = (ClassHTMLElement=HTMLElement) =>
-class extends MixSetTo(Get.FromRequest.mix(ClassHTMLElement)) {
-  static Mix = MixSetRequestToElement;
-
-  get toThis() { return !this.hasAttribute("to-query"); }
-  get insertTo() { return this.getAttribute("insert-to") ?? "inner"; }
+/** @type {ComponentSet.MixRequestToElement} */
+export const MixSetRequestToElement = ClassHTMLElement =>
+class extends ClassHTMLElement {
+  static mix = MixSetRequestToElement;
 
   connectedCallback() {
     super.connectedCallback();
-    if (this.toBuild) this.requestRefresh();
+    if (this.toBuild) this.fromRefresh();
   }
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(_name, _oldValue, _newValue) {
     if (!this.isRunConnectedCallback) return;
-    this.requestRefresh();
+    this.fromRefresh();
   }
 }
 
-export class SetTo extends MixSetTo() {}
-export class SetToElement extends MixSetToElement() {}
-export class SetRequestToElement extends MixSetRequestToElement() {}
+export class SetTo extends MixSetTo(Component) {}
+export class SetToElement extends MixSetToElement(SetTo) {}
+class B extends Get.FromRequest.mix(HTMLImageElement) {
+  constructor () {
+    super()
+    this.fr
+  }
+}
+export class SetRequestToElement extends MixSetRequestToElement(MixSetTo()) {
+  constructor () {
+    super()
+    this.src
+    this.from
+  }
+}
 
 export default {
   To: SetTo,

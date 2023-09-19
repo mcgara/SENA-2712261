@@ -18,13 +18,9 @@ class extends ClassHTMLElement {
   get fromProp() { return this.getAttribute("from-prop"); }
   set fromProp(value) { this.setAttribute("from-prop", value); }
 
-  /**
-   * @type {null}
-   */
+  /** @type {HTMLElement | null} */
   from;
-  /**
-   * @type {null}
-   */
+  /** @type {string | null} */
   data;
 
   constructor () {
@@ -50,7 +46,7 @@ class extends ClassHTMLElement {
 /** @type {Get.MixFromRequest} */
 export const MixGetFromRequest = ClassHTMLElement =>
 // @ts-ignore
-class Request extends ClassHTMLElement {
+class FromRequest extends ClassHTMLElement {
   static mix = MixGetFromRequest;
   static presetAttributes() {
     super.presetAttributes();
@@ -60,11 +56,10 @@ class Request extends ClassHTMLElement {
     this.attributes.add("username");
     this.attributes.add("password");
   }
-  static cache = new Map([["", new XMLHttpRequest()]]);
+  /** @type {Map<string, XMLHttpRequest>} */
+  static cache = new Map();
 
-  /**
-   * @type {string}
-   */
+  /** @type {string} */
   data;
   from;
 
@@ -85,26 +80,26 @@ class Request extends ClassHTMLElement {
   get password() { return this.getAttribute("password"); }
   set password(value) { this.setAttribute("password", value); }
 
-  requestIsReady() {
+  fromIsReady() {
     const isDone = this.from.readyState === XMLHttpRequest.DONE;
     const status = this.from.status;
     return isDone && (status === 0 || (status >= 200 && status < 400))
   }
 
-  requestOnChanged() {
-    if (!this.requestIsReady()) return;
+  fromOnChanged() {
+    if (!this.fromIsReady()) return;
     this.data = this.from.responseText;
     this.build();
   }
 
-  requestRefresh() {
-    if (Request.cache.has(this.url)) {
-      this.from = Request.cache.get(this.url);
-      this.requestOnChanged();
+  fromRefresh() {
+    if (FromRequest.cache.has(this.url)) {
+      this.from = FromRequest.cache.get(this.url);
+      this.fromOnChanged();
     } else {
       this.from.open(this.method, this.url, this.hasAttribute("sync"), this.username, this.password);
-      Request.cache.set(this.url, this.from);
-      this.from.onreadystatechange = () => this.requestOnChanged();
+      FromRequest.cache.set(this.url, this.from);
+      this.from.onreadystatechange = () => this.fromOnChanged();
       this.from.send();
     }
   }
