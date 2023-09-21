@@ -19,9 +19,13 @@ class _OrdenState extends State<Orden> {
     return Form(
       child: Column(
         children: [
-          const Text(
-            "Ingresa tu orden",
-            style: TextStyle(color: Colors.red, fontSize: 22)
+          Row(
+            children: [
+              const Text(
+                "Ingresa tu orden",
+                style: TextStyle(color: Colors.red, fontSize: 22)
+              ),
+            ],
           ),
           Row(
             children: [
