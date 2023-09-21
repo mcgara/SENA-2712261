@@ -1,6 +1,5 @@
 export type Constructor<T = HTMLElement> = new (...args: any[]) => T;
-
-declare const MixComponent: <T extends Constructor>(ClassHTMLElement: T) => T & {
+export type Component<T = Constructor> = T & {
   mix: typeof MixComponent
   get tagName(): string
   get tagPrefix(): string
@@ -30,7 +29,8 @@ declare const MixComponent: <T extends Constructor>(ClassHTMLElement: T) => T & 
     adoptedCallback(): void
   }
 }
+
+declare const MixComponent: <T extends Constructor>(ClassHTMLElement: T) => Component<T>
 export type MixComponent = typeof MixComponent
-export type Component = ReturnType<MixComponent>
-export const Component: Component
+export const Component: Component<Constructor>
 export default Component

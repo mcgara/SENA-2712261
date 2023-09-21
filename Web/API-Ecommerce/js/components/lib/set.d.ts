@@ -2,7 +2,8 @@ import Component from "./abstract"
 import Get from "./get"
 import Set = require("./set")
 
-declare const MixTo: <T extends Component>(ClassHMLTElement: T) => T & {
+export type To<T = Component> = T & {
+
   mix: typeof MixTo
 
   new (...args: any[]): {
@@ -20,24 +21,22 @@ declare const MixTo: <T extends Component>(ClassHMLTElement: T) => T & {
     data: string | null
   }
 }
+declare const MixTo: <T extends Component>(ClassHMLTElement: T) => To<T>
 export type MixTo = typeof MixTo
-export type To = ReturnType<MixTo>
 export const To: To
 
-
-declare const MixToElement: <T extends To>(ClassHMLTElement: T) => T & {
+export type ToElement<T = To> = T & {
   mix: typeof MixToElement
 }
+declare const MixToElement: <T extends To>(ClassHMLTElement: T) => ToElement<T>
 export type MixToElement = typeof MixToElement
-export type ToElement = ReturnType<MixToElement>
 export const ToElement: ToElement
 
-
-declare const MixRequestToElement: <T extends Get.FromRequest & To>(ClassHMLTElement: T) => T & {
+export type RequestToElement<T = To<Get.FromRequest>> = T & {
   mix: typeof MixRequestToElement
 }
+declare const MixRequestToElement: <T extends To<Get.FromRequest>>(ClassHMLTElement: T) => RequestToElement<T>
 export type MixRequestToElement = typeof MixRequestToElement
-export type RequestToElement = ReturnType<MixRequestToElement>
 export const RequestToElement: RequestToElement
 
 

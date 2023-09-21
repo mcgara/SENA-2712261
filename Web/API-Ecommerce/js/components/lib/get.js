@@ -3,7 +3,7 @@ import Component from "./abstract.js";
 /** @type {Get.MixFrom} */
 export const MixGetFrom = ClassHTMLElement => 
 // @ts-ignore
-class extends ClassHTMLElement {
+class From extends ClassHTMLElement {
   static mix = MixGetFrom;
   static presetAttributes() {
     super.presetAttributes();
@@ -32,7 +32,7 @@ class extends ClassHTMLElement {
 
 /** @type {Get.MixFromElement} */
 export const MixGetFromElement = ClassHTMLElement =>
-class extends ClassHTMLElement {
+class FromElement extends ClassHTMLElement {
   static Mix = MixGetFromElement;
 
   build() {
@@ -106,8 +106,17 @@ class FromRequest extends ClassHTMLElement {
 }
 
 export class GetFrom extends MixGetFrom(Component) {}
-export class GetFromElement extends MixGetFromElement(GetFrom) {}
-export class GetFromRequest extends MixGetFromRequest(Component) {}
+export class GetFromElement extends MixGetFromElement(GetFrom) {
+  constructor() {
+    super()
+  }
+}
+export class GetFromRequest extends MixGetFromRequest(Component) {
+  constructor() {
+    super()
+    this.from
+  }
+}
 
 export default {
   From: GetFrom,

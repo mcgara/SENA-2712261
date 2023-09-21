@@ -1,10 +1,11 @@
 import type { Component } from "./abstract"
 import Get = require("./get")
 
-declare const MixFrom: <T extends Component>(ClassHTMLElement: T) => T & {
+export type From<T = Component> = T & {
   mix: typeof MixFrom
   new (...args: any[]): {
     get fromThis(): string
+    set fromThis(value)
     get fromQuery(): string
     set fromQuery(value)
     get fromProp(): string
@@ -14,22 +15,21 @@ declare const MixFrom: <T extends Component>(ClassHTMLElement: T) => T & {
     data: string | null
   }
 }
+declare const MixFrom: <T extends Component>(ClassHTMLElement: T) => From<T>
 export type MixFrom = typeof MixFrom
-export type From = ReturnType<MixFrom>
 export const From: From
 
 
 
-declare const MixFromElement: <T extends From>(ClassHTMLElement: T) => T & {
+export type FromElement<T = From> = T & {
   mix: typeof MixFromElement
 }
+declare const MixFromElement: <T extends From>(ClassHTMLElement: T) => FromElement<T>
 export type MixFromElement = typeof MixFromElement
-export type FromElement = ReturnType<MixFromElement>
 export const FromElement: FromElement
 
 
-
-declare const MixFromRequest: <T extends Component>(ClassHTMLElement: T) => T & {
+export type FromRequest<T = Component> = T & {
   mix: typeof MixFromRequest
   cache: Map<string, XMLHttpRequest>
 
@@ -53,8 +53,8 @@ declare const MixFromRequest: <T extends Component>(ClassHTMLElement: T) => T & 
     fromRefresh(): void
   }
 }
+declare const MixFromRequest: <T extends Component>(ClassHTMLElement: T) => FromRequest<T>
 export type MixFromRequest = typeof MixFromRequest
-export type FromRequest = ReturnType<MixFromRequest>
 export const FromRequest: FromRequest
 
 

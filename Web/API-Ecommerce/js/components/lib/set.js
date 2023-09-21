@@ -89,7 +89,7 @@ export class SetToElement extends MixSetToElement(SetTo) {}
 class B extends Get.FromRequest.mix(HTMLImageElement) {
   constructor () {
     super()
-    this.fr
+    this.from
   }
 }
 export class SetRequestToElement extends MixSetRequestToElement(MixSetTo()) {
