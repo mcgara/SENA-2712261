@@ -1,21 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Constants from 'expo-constants'
+import { StyleSheet, View } from 'react-native';
+
+import Home from './components/pages/home'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hello World!</Text>
-      <Text>This is a app MyApp</Text>
+    <View style={styles.statusBar}>
       <StatusBar style="auto" />
+      <Home />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eee',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  statusBar: {
+    paddingTop: Constants.statusBarHeight
+  }
+})
