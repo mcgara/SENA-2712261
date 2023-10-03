@@ -1,9 +1,8 @@
 import Component from "./abstract.js";
 
-/** @type {Get.MixFrom} */
-export const MixGetFrom = ClassHTMLElement => 
-// @ts-ignore
-class From extends ClassHTMLElement {
+/** @type {import("./getFrom").MixGetFrom} */
+export const MixGetFrom = ClassComponent => 
+class From extends ClassComponent {
   static mix = MixGetFrom;
   static presetAttributes() {
     super.presetAttributes();
@@ -12,7 +11,7 @@ class From extends ClassHTMLElement {
     this.attributes.add("from-prop");
   }
 
-  get fromThis() { return this.getAttribute("from-this"); }
+  get fromThis() { return this.hasAttribute("from-this"); }
   get fromQuery() { return this.getAttribute("from-query"); }
   set fromQuery(value) { this.setAttribute("from-query", value); }
   get fromProp() { return this.getAttribute("from-prop"); }
@@ -23,19 +22,31 @@ class From extends ClassHTMLElement {
   /** @type {string | null} */
   data;
 
-  constructor () {
-    super();
+  constructor (...args) {
+    super(...args);
     this.data = null;
     this.from = null;
+    console.log("ostia que paso")
+  }
+
+  build() {
+    super.build()
   }
 }
 
-/** @type {Get.MixFromElement} */
-export const MixGetFromElement = ClassHTMLElement =>
-class FromElement extends ClassHTMLElement {
+/** @type {import("./getFrom").MixGetFromElement} */
+export const MixGetFromElement = ClassComponent =>
+class GetFromElement extends ClassComponent {
   static Mix = MixGetFromElement;
 
+  constructor (...args) {
+    super(...args)
+    console.log("PUtaaaa")
+  }
+
   build() {
+    super.build()
+    console.log("heelooasdfasdfasdf")
     if (this.noBuild) return;
     if (this.fromThis) this.from = this;
     if (this.from === null) this.from = this.querySelector(this.fromQuery);
@@ -43,10 +54,9 @@ class FromElement extends ClassHTMLElement {
   }
 }
 
-/** @type {Get.MixFromRequest} */
-export const MixGetFromRequest = ClassHTMLElement =>
-// @ts-ignore
-class FromRequest extends ClassHTMLElement {
+/** @type {import("./getFrom").MixGetFromRequest} */
+export const MixGetFromRequest = ClassComponent =>
+class GetFromRequest extends ClassComponent {
   static mix = MixGetFromRequest;
   static presetAttributes() {
     super.presetAttributes();
@@ -63,8 +73,8 @@ class FromRequest extends ClassHTMLElement {
   data;
   from;
 
-  constructor () {
-    super();
+  constructor (...args) {
+    super(...args);
     this.from = new XMLHttpRequest();
     this.data = null;
   }
@@ -93,12 +103,12 @@ class FromRequest extends ClassHTMLElement {
   }
 
   fromRefresh() {
-    if (FromRequest.cache.has(this.url)) {
-      this.from = FromRequest.cache.get(this.url);
+    if (GetFromRequest.cache.has(this.url)) {
+      this.from = GetFromRequest.cache.get(this.url);
       this.fromOnChanged();
     } else {
-      this.from.open(this.method, this.url, this.hasAttribute("sync"), this.username, this.password);
-      FromRequest.cache.set(this.url, this.from);
+      this.from.open(this.method, this.url, !this.hasAttribute("sync"), this.username, this.password);
+      GetFromRequest.cache.set(this.url, this.from);
       this.from.onreadystatechange = () => this.fromOnChanged();
       this.from.send();
     }
@@ -106,20 +116,11 @@ class FromRequest extends ClassHTMLElement {
 }
 
 export class GetFrom extends MixGetFrom(Component) {}
-export class GetFromElement extends MixGetFromElement(GetFrom) {
-  constructor() {
-    super()
-  }
-}
-export class GetFromRequest extends MixGetFromRequest(Component) {
-  constructor() {
-    super()
-    this.from
-  }
-}
+export class GetFromElement extends MixGetFromElement(GetFrom) {}
+export class GetFromRequest extends MixGetFromRequest(Component) {}
 
 export default {
-  From: GetFrom,
-  FromElement: GetFromElement,
-  FromRequest: GetFromRequest
+  Abstract: GetFrom,
+  Element: GetFromElement,
+  Request: GetFromRequest
 }

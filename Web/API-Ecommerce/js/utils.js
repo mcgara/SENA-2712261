@@ -22,18 +22,18 @@ export function setCountIndex(length=0) {
 }
 
 /** @type {Utils.Mix} */
-const Mix = (superclass) => new MixinBuilder(superclass);
+export const Mix = (superclass) => new MixinBuilder(superclass);
 
 /** @type {Utils.MixinBuilder} */
-class MixinBuilder {
+export class MixinBuilder {
   constructor(superclass) { this.superclass = superclass;}
   with(...mixins) {  return mixins.reduce((c, mixin) => mixin(c), this.superclass); }
 }
 
-// Mix("hello").with((sc) => ({ b: "asd" }), (fd) => ({ a: "abc", b: "asfdf" }))
-
 export default {
   shuffleArray,
   generateRandom,
-  setCountIndex
+  setCountIndex,
+  Mix,
+  MixinBuilder
 }

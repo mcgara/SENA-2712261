@@ -1,9 +1,13 @@
 import Abstract from "./abstract.js";
-import Get from "./get.js";
-import Set from "./set.js";
+import getFrom from "./getFrom.js";
+import setTo from "./setTo.js";
+
+export const Component = Abstract;
+export const GetFrom = getFrom;
+export const SetTo = setTo;
 
 export default {
-  Abstract,
-  Get,
-  Set
+  Component,
+  GetFrom,
+  SetTo
 }

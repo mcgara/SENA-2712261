@@ -1,13 +1,19 @@
-import Component from "../lib/index.js";
+import { FromElementToElement, FromRequestToElement } from "./fromTo.js";
 
-export const HTMLBasicTags = ClassHTMLElement => class extends Component.Set.ToElement.Mix(ClassHTMLElement) {
+/**
+ * @template {typeof HTMLElement} T
+ * @param {T} ClassHTMLElement
+ * @return {ReturnType<typeof FromElementToElement<T>>}
+ */
+export const HTMLMainTags = ClassHTMLElement =>
+class MainTag extends FromElementToElement(ClassHTMLElement) {
   get fromThis() { return true; }
-  get fromProp() { return super.fromProp ?? "innerHTML"; }
+  get fromProp() { return this.getAttribute("from-prop") ?? "innerHTML"; }
   get toThis() { return false; }
   get removeThis() { return true; }
 }
 
-export class HTMLHead extends HTMLBasicTags() {
+export class HTMLHead extends HTMLMainTags(HTMLElement) {
   static get tagName() { return "head"; }
 
   constructor () {
@@ -16,7 +22,7 @@ export class HTMLHead extends HTMLBasicTags() {
   }
 }
 
-export class HTMLBody extends HTMLBasicTags() {
+export class HTMLBody extends HTMLMainTags(HTMLElement) {
   static get tagName() { return "body"; }
 
   constructor () {
@@ -25,7 +31,7 @@ export class HTMLBody extends HTMLBasicTags() {
   }
 }
 
-export class HTMLTitle extends HTMLBasicTags(HTMLTitleElement) {
+export class HTMLTitle extends HTMLMainTags(HTMLTitleElement) {
   static get tagName() { return "title" }
   static get tagExtends() { return "title" }
 
@@ -38,11 +44,11 @@ export class HTMLTitle extends HTMLBasicTags(HTMLTitleElement) {
   }
 }
 
-export class HTMLPage extends Component.Set.RequestToElement {
+export class HTMLPage extends FromRequestToElement(HTMLElement) {
   static get tagName() { return "page"; }
 
-  get toThis() { return false; }
-  get removeThis() { return true; }
+  get insertTo() { return "outer"; }
+  get canBuild() { return true; }
 
   constructor () {
     super();
@@ -50,8 +56,10 @@ export class HTMLPage extends Component.Set.RequestToElement {
   }
 }
 
-export class HTMLPart extends Component.Set.RequestToElement {
+export class HTMLPart extends FromRequestToElement(HTMLElement) {
   static get tagName() { return "part"; }
+  get toThis() { return true; }
+  get canBuild() { return true; }
 }
 
 export default {

@@ -1,10 +1,9 @@
 import { Component } from "./abstract.js";
-import Get from "./get.js";
+import GetFrom from "./getFrom.js";
 
-/** @type {ComponentSet.MixTo} */
-export const MixSetTo = ClassHTMLElement =>
-// @ts-ignore
-class extends ClassHTMLElement {
+/** @type {import("./setTo").MixSetTo} */
+export const MixSetTo = ClassComponent =>
+class SetTo extends ClassComponent {
   static mix = MixSetTo;
   static presetAttributes() {
     super.presetAttributes();
@@ -22,45 +21,47 @@ class extends ClassHTMLElement {
   set toProp(value) { this.setAttribute("to-prop", value); }
   get insertTo() { return this.getAttribute("insert-to") ?? "beforeend"; }
   set insertTo(value) { this.setAttribute("insert-to", value); }
-  get removeThis() { return this.getAttribute("remove-this"); }
-  set removeThis(value) { this.setAttribute("remove-this", value); }
+  get removeThis() { return this.hasAttribute("remove-this"); }
 
-  /** @type {HTMLElement | null} */
+  /** @type {Element | HTMLElement | null} */
   to;
   /** @type {string | null} */
   data;
 
-  constructor () {
-    super();
-    this.data = this.data ?? null
-    this.to = this
+  constructor (...args) {
+    super(...args);
+    this.data = this.data ?? null;
   }
 
   build() {
-    super.build();
-    if (!this.noBuild || this.data === null) return;
-    if (!this.toThis) this.to = null;
+    console.log("putass", super.build)
+    // console.log("hello asdf Start", this.tagName, this.data)
+    if (this.noBuild || this.data === null) return;
+    if (this.toThis) this.to = this;
     if (this.to === null) this.to = this.querySelector(this.toQuery);
     if (this.to === null) return;
-
+    
     if (this.insertTo === null) this.insertTo = "inner";
     if (this.toProp) this.to[this.toProp] = this.data;
     else if (this.insertTo === "inner") this.to.innerHTML = this.data;
     else if (this.insertTo === "outer") this.to.outerHTML = this.data;
-    // @ts-ignore // insertTo as InsertPosition or implement TypeGuard
+    // @ts-ignore // insertTo as InsertPosition or implement TypeGuard isInsertPosition
     else this.to.insertAdjacentHTML(this.insertTo, this.data);
     if (!this.toThis && this.removeThis) this.remove();
+    // console.log("hello asdf End", this.tagName)
   }
 }
 
-/** @type {ComponentSet.MixToElement} */
-export const MixSetToElement = ClassHTMLElement =>
-class extends ClassHTMLElement {
+/** @type {import("./setTo").MixSetToElement} */
+export const MixSetToElement = ClassComponent =>
+class SetToElement extends ClassComponent {
   static mix = MixSetToElement;
 
   connectedCallback() {
     super.connectedCallback();
+    // console.log("world asdf End", this.tagName, this.data)
     this.build();
+    // console.log("world2 asdf End", this.tagName, this.data)
   }
 
   attributeChangedCallback(_name, _oldValue, _newValue) {
@@ -69,14 +70,14 @@ class extends ClassHTMLElement {
   }
 }
 
-/** @type {ComponentSet.MixRequestToElement} */
-export const MixSetRequestToElement = ClassHTMLElement =>
-class extends ClassHTMLElement {
-  static mix = MixSetRequestToElement;
+/** @type {import("./setTo").MixSetRequestTo} */
+export const MixSetRequestTo = ClassComponent =>
+class SetRequestTo extends ClassComponent {
+  static mix = MixSetRequestTo;
 
   connectedCallback() {
     super.connectedCallback();
-    if (this.toBuild) this.fromRefresh();
+    if (this.canBuild) this.fromRefresh();
   }
   attributeChangedCallback(_name, _oldValue, _newValue) {
     if (!this.isRunConnectedCallback) return;
@@ -85,23 +86,11 @@ class extends ClassHTMLElement {
 }
 
 export class SetTo extends MixSetTo(Component) {}
-export class SetToElement extends MixSetToElement(SetTo) {}
-class B extends Get.FromRequest.mix(HTMLImageElement) {
-  constructor () {
-    super()
-    this.from
-  }
-}
-export class SetRequestToElement extends MixSetRequestToElement(MixSetTo()) {
-  constructor () {
-    super()
-    this.src
-    this.from
-  }
-}
+export class SetToElement extends MixSetToElement(SetTo.mix(Component)) {}
+export class SetRequestTo extends MixSetRequestTo(SetTo.mix(GetFrom.Request)) {}
 
 export default {
-  To: SetTo,
-  ToElement: SetToElement,
-  RequestToElement: SetRequestToElement
+  Abstract: SetTo,
+  Element: SetToElement,
+  RequestTo: SetRequestTo
 }

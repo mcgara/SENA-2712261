@@ -1,6 +1,5 @@
 /** @type {import("./abstract").MixComponent} */
 export const MixComponent = ClassHTMLElement =>
-// @ts-ignore // Bug: ts(2545)
 class Component extends ClassHTMLElement {
   static mix = MixComponent;
   static get tagName() { return undefined; }
@@ -27,16 +26,16 @@ class Component extends ClassHTMLElement {
     registry.define(name, this, { extends: tagExtends });
   }
 
-  constructor () { super(); }
+  constructor (...args) { super(...args); }
   
-  get toBuild() { return this.getAttribute("build"); }
-  set toBuild(value) { this.setAttribute("build", value); }
-  get noBuild() { return this.getAttribute("no-build"); }
-  set noBuild(value) { this.setAttribute("no-build", value); }
+  get canBuild() { return this.hasAttribute("build"); }
+  get noBuild() { return this.hasAttribute("no-build"); }
   
   isRunConnectedCallback = false;
 
-  build() {}
+  build() {
+    console.log("sollecito")
+  }
   connectedCallback() {
     this.isRunConnectedCallback = true;
   }

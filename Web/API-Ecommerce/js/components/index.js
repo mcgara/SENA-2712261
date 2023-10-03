@@ -1,25 +1,19 @@
-import Utils from "./utils/index.js";
-import FakeStore from "./fakeStore.js";
-import Product from "./product.js";
-import Component from "./lib/index.js";
+import libUtils from "./utils/index.js";
+import libComponent from "./lib/index.js";
 
-class a extends Component.Set.RequestToElement {
-  constructor () {
-    super()
-    this.to
-  }
-}
+// import libFakeStore from "./fakeStore.js";
+// import libProduct from "./product.js";
 
-// FakeStore.Abstract.define();
-// Product.Abstract.define();
-// Utils.HTML.Head.define();
-// Utils.HTML.Body.define();
-// Utils.HTML.Title.define();
-// Utils.HTML.Page.define();
-// Utils.HTML.Part.define();
+export const Utils = libUtils;
+export const Component = libComponent;
+
+// export const FakeStore = libFakeStore;
+// export const Product = libProduct;
 
 export default {
-  FakeStore,
-  Product,
-  Utils
+  Component,
+  Utils,
+
+  // FakeStore,
+  // Product
 }

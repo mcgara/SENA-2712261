@@ -7,7 +7,7 @@ export type Constructor<T = {}> = new (...args: any[]) => T
 export class MixinBuilder<T extends Constructor> {
   constructor (superclass: T)
   superclass: T
-  with<R extends Constructor>(...mixins: Array<(superclass: T) => R>): R
+  with<C extends Constructor>(...mixins: Array<(superclass: T) => C>): C
 }
 
 export const Mix: <T extends Constructor>(superclass: T) => MixinBuilder<T>
