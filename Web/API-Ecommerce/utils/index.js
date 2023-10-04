@@ -24,7 +24,7 @@ export function setCountIndex(length=0) {
 export function formatString(str, obj) {
   return str.replace(/\{(\w+)\}/g, (_, key) =>
     obj[key] in [null, undefined] ? key : String(obj[key])
-  )
+  );
 }
 
 /** @param {string} props */
@@ -41,13 +41,24 @@ export function getDeepProperty(obj, props) {
   return obj;
 }
 
-/** @type {import('./utils').Mix} */
+/** @type {import('./index').Mix} */
 export const Mix = (superclass) => new MixinBuilder(superclass);
 
-/** @type {import('./utils').MixinBuilder} */
+/** @type {import('./index').MixinBuilder} */
 export class MixinBuilder {
-  constructor(superclass) { this.superclass = superclass;}
+  constructor(superclass) { this.superclass = superclass; }
   with(...mixins) {  return mixins.reduce((c, mixin) => mixin(c), this.superclass); }
+}
+
+export function onceCallback(callback) {
+  if (typeof callback !== 'function') throw TypeError('parameter callback must be type function');
+  let value;
+  let onceCall = false;
+  return () => {
+    if (!onceCall) value = callback();
+    else onceCall = true;
+    return value;
+  }
 }
 
 export default {
@@ -57,5 +68,6 @@ export default {
   formatString,
   getDeepProperty,
   MixinBuilder,
-  Mix
+  Mix,
+  onceCallback
 }

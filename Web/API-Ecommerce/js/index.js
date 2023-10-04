@@ -1,5 +1,5 @@
 import * as Utils from "./utils.js";
-import API from "./api/index.js";
+import API from "../api/index.js";
 import Components from "./components/index.js";
 
 Components.Utils.HTML.Head.define();
