@@ -1,0 +1,45 @@
+--- TodoList Aplicativo ---
+
+1. Requisitos Funcionales y no Funcionales documento SRS.
+2. Diseño UI y UX mockups bocetos de la aplicacion.
+3. Modelo de base de datos.
+
+
+-- Requisitos Funcionales --
+
+- Requisitos de interfaz?
+
+El aplicativo debe permitir al usuario escribir en una campo el texto que corresponde
+a la tarea que quiera hacer.
+
+Organizar las tareas por grupo, etiquetar u categorizar dichas tareas por ese grupo.
+
+Permitir al usuario asginar eventos que quiera colocar a la tarea en especifico.
+
+Recordatorio de las tareas, utilizar un software externo o api de calendario del sistema
+para manejar fechas y establecer eventos de notificacion como recordatorio de la tarea
+
+Establecer estados en la tarea que sea modificable por el usuario, los estados
+pueden ser "hecho", "por hacer", "eliminado", "vencido", tambien son modificables
+por la propia aplicación respecto a los eventos de este mismo.
+
+Al eliminar las tareas disponer de una papelera donde pueda recuperar las tareas.
+
+# Cuando no se encuentra la aplicación activa y recientemente estaba con dato insertados
+# mantener con persistencia esos datos seria como un borrador (opcional)
+
+Especificar información estadistica de la tarea metadados como, fecha creación, tiempo etc.
+# Progreso del usuario.
+
+- Requisitos de usuario
+
+Se debe mantener las funcionalides "CRUD" con las tareas del usuario: crear, leer, actualiar, eliminar
+
+Disponer al usuario de un resgistro de datos para ser exclusivo y pueda ser identificado
+en el aplicativo.
+
+Disponer al usuario de un login con sus datos para crear una sección y vincular el dispositivo
+y mantenerla activa en este.
+
+Disponer al usuario de un apartado del logeo donde pueda recuperar la contraseña.
+
