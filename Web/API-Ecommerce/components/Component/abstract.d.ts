@@ -1,30 +1,4 @@
-export class Render {
-  static getRender(component: Component | string): Render
-  static getElements(text: string): Element[]
-  static setCollectionToElement(element: Element, collection: Element[]): void
-  static clearCollection(element: Element, collection: Element[]): void
-
-  constructor(component: Component)
-  constructor(source: string)
-
-  get source(): string
-  set source(value)
-  get request(): XMLHttpRequest
-  set request(value)
-  get async(): boolean
-  set async(value)
-  get text(): string
-  set text(value)
-  get elements(): Element[]
-
-  get isReady(): boolean
-  load(force?: boolean): void
-  get onload(): () => void
-  set onload(value)
-  loadElements(): void
-  setCollectionToElement(element: Element): void
-  clearCollection(element: Element): void
-}
+import { Render, RenderComponent } from './render'
 
 export type ClassHTMLElement<T = HTMLElement> = new (...args: any[]) => T;
 export type Component<T = ClassHTMLElement> = {
@@ -34,8 +8,9 @@ export type Component<T = ClassHTMLElement> = {
   tagPrefix: string,
   tagExtends: string
 
-  source: string
-  get render(): Render
+  root: string
+  get source(): string
+  get render(): RenderComponent
 
   attributes: Set<string>
   get observedAttributes(): string[]
@@ -48,7 +23,9 @@ export type Component<T = ClassHTMLElement> = {
   ): void
   
   new (...args: any[]): {
-    isRunConnected: boolean;
+    isRunConnected: boolean
+    removeOnConnected: boolean
+    render: Render
   
     get canBuild(): string
     get noBuild(): boolean
@@ -58,12 +35,12 @@ export type Component<T = ClassHTMLElement> = {
     set noBuild(value)
     set canRender(value)
     set noRender(value)
-  
+    
+    onRender(onload: () => void): void
     build(): void
-    render(onload?: () => void): void
     connected(): void
     attributeChanged(name: string, oldValue: string | null, newValue: string | null): void
-    // disconnected(): void
+    disconnected(): void
     // adopted(): void
   }
 } & T

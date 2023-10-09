@@ -4,6 +4,7 @@ export function setCountIndex(length?: number): number
 export function formatString(str: string, obj: object): string
 export function getDeepProperty(obj: object, props: string): object
 export function onceCallback<T extends () => any>(callback: T): T
+export function camelToDash(str: string): string
 
 export type Constructor<T = {}> = new (...args: any[]) => T
 

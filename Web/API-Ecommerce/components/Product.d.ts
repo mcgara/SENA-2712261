@@ -1,4 +1,4 @@
-import { Component, ClassHTMLElement } from './Component'
+import { Component, ClassHTMLElement } from './Component/abstract'
 import FakeStore from './FakeStore'
 export type Product<T = FakeStore<Component>> = {
   mix: MixProduct
@@ -6,5 +6,6 @@ export type Product<T = FakeStore<Component>> = {
   new (...args: any[]): {}
 } & T
 export type MixProduct = <T extends ClassHTMLElement>(ClassHTMLElement: T) => Product<FakeStore<Component<T>>>
-export const Product: Product
+export var Product: Product
+export var ProductGenerator: FakeStore
 export default Product

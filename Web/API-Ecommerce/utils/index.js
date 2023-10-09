@@ -55,11 +55,17 @@ export function onceCallback(callback) {
   let value;
   let onceCall = false;
   return () => {
-    if (!onceCall) value = callback();
-    else onceCall = true;
+    if (!onceCall) {
+      value = callback();
+      onceCall = true;
+    }
     return value;
   }
 }
+
+export const camelToDash = str =>
+  str[0].toLowerCase() +
+  str.slice(1).replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
 
 export default {
   shuffleArray,
@@ -69,5 +75,6 @@ export default {
   getDeepProperty,
   MixinBuilder,
   Mix,
-  onceCallback
+  onceCallback,
+  camelToDash
 }
