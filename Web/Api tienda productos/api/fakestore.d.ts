@@ -1,5 +1,3 @@
-import FakeStore = require("./fakestore")
-
 export const url: "https://fakestoreapi.com";
 
 export const routes: {
@@ -49,5 +47,11 @@ export const users: () => Promise<Users>
 export const products: () => Promise<Products>
 export const categories: () => Promise<Categories>
 
-export as namespace FakeStore
-export default FakeStore
+declare var Default = {
+  url,
+  routes,
+  users,
+  products,
+  categories
+}
+export default Default

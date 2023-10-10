@@ -1,4 +1,4 @@
-[is="api-product-modal-open"]:hover {
+[data-bs-target="#product-modal"]:hover {
   cursor: pointer;
   filter: brightness(90%);
 }
