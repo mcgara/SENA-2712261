@@ -19,6 +19,7 @@ export const useProductsPerCategories = (shuffle=true) =>
 export function usePageProducts(element) {
   useHtmlTitle('Api Ecommerce - Products');
   element.innerHTML = PageProducts();
+  
   const productsPerCategories = element.querySelector('#products-per-categories');
 
   if (productsPerCategories) {

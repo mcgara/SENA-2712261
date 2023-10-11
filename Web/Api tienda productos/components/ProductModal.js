@@ -2,7 +2,7 @@ export const ProductModalBody = () => `
 <div class="card border-0">
   <div class="row row-cols-1 row-cols-md-2 g-0">
     <div class="col col-md-4 align-items-center">
-      <img class="img-fluid object-fit-contain w-100" src="./assets/placeholder-img.png" style="height: 85vh" />
+      <img class="img-fluid object-fit-contain w-100" src="/assets/placeholder-img.png" style="height: 85vh" />
     </div>
     <div class="col col-md-8 py-1 py-md-2 px-1 px-md-4 d-flex flex-column justify-content-evenly">
       <div class="card-body p-0 py-md-2">
@@ -49,8 +49,9 @@ export const ProductModalHeader = () => `
 </div>
 `;
 
-export const ProductModal = () => `
-<div id="product-modal" class="modal fade">
+/** @param {string} id */
+export const ProductModal = (id) => `
+<div id="${id ?? 'product-modal'}" class="modal fade">
   <div
     class="modal-dialog modal-dialog-centered modal-xl mx-auto"
     style="max-width: 100vw; width: 90%"

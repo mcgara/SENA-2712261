@@ -1,11 +1,11 @@
 import { APIFakeStore as API } from '../api/index.js';
 import { shuffleArray } from '../utils/index.js';
 
-/** @typedef {import('../api/fakestore').Product[]} IProducts */
+/** @typedef {import('../api/fakestore').Product} Product */
 
 /**
- * @template R
- * @param {(products: IProducts) => R} callback
+ * @template T
+ * @param {(products: Product[]) => T} callback
  */
 export const useProducts = (callback, shuffle=true) =>
   API.products()
@@ -15,12 +15,12 @@ export const useProducts = (callback, shuffle=true) =>
 /** @type {string[]} */
 const ArrayOfString = [];
 
-/** @type {Record<string, IProducts>} */
+/** @type {Record<string, Product[]>} */
 const ProductsPerCategory = {};
 
 /**
- * @template R
- * @param {(products: typeof ProductsPerCategory) => R} callback
+ * @template T
+ * @param {(products: typeof ProductsPerCategory) => T} callback
  */
 export const useProductsPerCategory = (callback, shuffle=true) =>
   useProducts(products =>
