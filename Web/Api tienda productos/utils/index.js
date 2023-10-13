@@ -67,6 +67,8 @@ export const camelToDash = str =>
   str[0].toLowerCase() +
   str.slice(1).replace(/([A-Z])/g, val => `-${val.toLowerCase()}`);
 
+export const toTitle = str => str?.replace(/\b([a-z])/, first => first.toUpperCase());
+
 export default {
   shuffleArray,
   generateRandom,
@@ -76,5 +78,6 @@ export default {
   MixinBuilder,
   Mix,
   onceCallback,
-  camelToDash
+  camelToDash,
+  toTitle
 }

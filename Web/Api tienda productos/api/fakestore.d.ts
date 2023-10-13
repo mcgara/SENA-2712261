@@ -7,21 +7,21 @@ export const routes: {
 }
 
 export interface User {
-  id: number,
-  email: string,
-  username: string,
-  password: string,
+  id: number
+  email: string
+  username: string
+  password: string
   name: {
-    firstname: string,
+    firstname: string
     lastname: string
   },
   address: {
-    city: string,
-    street: string,
-    number: number,
-    zipcode: string,
+    city: string
+    street: string
+    number: number
+    zipcode: string
     geolocation: {
-      lat: string,
+      lat: string
       long: string
     }
   },
@@ -31,21 +31,21 @@ export interface User {
 export type Category = string;
 
 export interface Product {
-  id: number,
-  title: string,
-  price: string,
-  category: Category,
-  description: string,
+  id: number
+  title: string
+  price: number
+  category: Category
+  description: string
   image: string
+  rating: {
+    rate: number
+    count: number
+  }
 }
 
-export type Users = User[];
-export type Products = Product[];
-export type Categories = Category[];
-
-export const users: () => Promise<Users>
-export const products: () => Promise<Products>
-export const categories: () => Promise<Categories>
+export const users: () => Promise<User[]>
+export const products: () => Promise<Product[]>
+export const categories: () => Promise<Category[]>
 
 declare var Default = {
   url,

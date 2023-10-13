@@ -1,22 +1,22 @@
 export const ProductModalBody = () => `
 <div class="card border-0">
   <div class="row row-cols-1 row-cols-md-2 g-0">
-    <div class="col col-md-4 align-items-center">
-      <img class="img-fluid object-fit-contain w-100" src="/assets/placeholder-img.png" style="height: 85vh" />
+    <div class="col col-md-4 align-items-center p-3">
+      <img product="image" class="img-fluid object-fit-contain w-100" src="/assets/placeholder-img.png" style="height: 85vh" />
     </div>
     <div class="col col-md-8 py-1 py-md-2 px-1 px-md-4 d-flex flex-column justify-content-evenly">
       <div class="card-body p-0 py-md-2">
         <h1 class="card-title py-1 py-md-2">
-          <h1 class="fs-2 placeholder-glow">
+          <h1 product="title" class="fs-2 placeholder-glow">
             <span class="placeholder col-11 rounded-4"></span>
             <span class="placeholder col-6 rounded-4"></span>
           </h1>
-          <p class="badge bg-secondary fs-5 w-25 placeholder-glow">
+          <p product="category" class="badge bg-secondary fs-5 w-25 placeholder-glow">
             <span class="placeholder col-12 rounded-4"></span>
           </p>
         </h1>
 
-        <p class="card-text py-1 py-md-2 fs-5 placeholder-glow">
+        <p product="description" class="card-text py-1 py-md-2 fs-5 placeholder-glow">
           <span class="placeholder col-11 rounded-4"></span>
           <span class="placeholder col-10 rounded-4"></span>
           <span class="placeholder col-11 rounded-4"></span>
@@ -26,13 +26,21 @@ export const ProductModalBody = () => `
         </p>
       </div>
 
-      <div class="card-footer border-0 rounded-4">
-        <p class="fs-3 placeholder-glow">
+      <div class="card-footer border-0 rounded-4 d-flex justify-content-between">
+        <p class="fs-3 my-auto placeholder-glow">
           <span class="placeholder col-4 rounded-4"></span>
         </p>
+        <input
+          type="number"
+          min="1"
+          max="10000"
+          value="1"
+          product="price"
+          class="ps-3 border border-3 rounded-3 fs-3"
+        />
       </div>
 
-      <button class="btn btn-primary">
+      <button id="add-to-cart" class="btn btn-primary">
         <p class="icon-link h-100 fs-5">
           <span class="material-symbols-outlined">shopping_cart</span>
           Add To Cart
@@ -49,7 +57,7 @@ export const ProductModalHeader = () => `
 </div>
 `;
 
-/** @param {string} id */
+/** @param {string} [id] */
 export const ProductModal = (id) => `
 <div id="${id ?? 'product-modal'}" class="modal fade">
   <div

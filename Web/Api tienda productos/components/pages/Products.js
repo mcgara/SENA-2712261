@@ -2,33 +2,26 @@ import Collapse from '../Collapse.js';
 import NavBar from '../NavBar.js';
 import Title from '../Title.js';
 import ProductModal from '../ProductModal.js';
+import CollapseCart from '../Cart.js';
 
-export const props = {
-  idProductPerCategories: 'products-per-categories',
-  idProductModal: 'product-modal',
-  attributesModalData: {
-    product: 'data-bs-product'
-  }
-}
-
-/** @param {typeof props} props */
-export const PageProducts = (props=props) => `
+export const PageProducts = () => `
 <div class="container-fluid p-0">
-    
-  ${Collapse()}
   
-  ${NavBar()}
+  <div class="sticky-top">
+    ${NavBar()}
+
+    ${Collapse()}
+  </div>
+
+  ${CollapseCart()}
   
   ${Title('Api Ecommerce Products')}
 
-  <div id="${props.idProductPerCategories ?? 'products-per-categories'}"></div>
+  <div id="products-per-categories"></div>
 
-  ${ProductModal(props.idProductModal)}
+  ${ProductModal()}
 
 </div>
 `
 
-export default {
-  PageProducts,
-  props
-}
+export default PageProducts;

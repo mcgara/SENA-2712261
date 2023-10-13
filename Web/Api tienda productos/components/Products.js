@@ -1,3 +1,5 @@
+import { toTitle } from '../utils/index.js';
+
 /** @typedef {import('../api/fakestore').Product} IProduct */
 
 /** @param {IProduct} [product] */
@@ -6,7 +8,7 @@ export const Product = (product) => `
   class="col"
   data-bs-toggle="modal"
   data-bs-target="#product-modal"
-  data-bs-product="${JSON.stringify(product)}"
+  data-bs-product="${JSON.stringify(product).replace(/"/g, '&quot;')}"
 >
   <div class="card h-100 border-0 p-3">
 
@@ -52,7 +54,7 @@ export const ProductsPerCategory = (category, products) => `
 <div class="container-fluid px-5"> 
   <h1 category-index="-1" class="fw-semibold text-center my-4 my-md-5 placeholder-glow">
     ${
-      category[0].toUpperCase() + category.slice(1) ??
+      toTitle(category) ??
       `<span class="placeholder col-3 rounded-4"></span>`
     }
   </h1>
