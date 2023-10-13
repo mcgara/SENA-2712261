@@ -11,9 +11,10 @@ export const PageProducts = () => `
     ${NavBar()}
 
     ${Collapse()}
+    
+    ${CollapseCart()}
   </div>
 
-  ${CollapseCart()}
   
   ${Title('Api Ecommerce Products')}
 
