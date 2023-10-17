@@ -2,22 +2,24 @@ import { toTitle } from '../utils/index.js';
 
 /** @typedef {import('../api/fakestore').Product} IProduct */
 
-/** @param {IProduct} [product] */
-export const Product = (product) => `
+/** @param {IProduct} product={} */
+export const Product = (product={}) => `
 <div
   class="col"
   data-bs-toggle="modal"
   data-bs-target="#product-modal"
-  data-bs-product="${JSON.stringify(product).replace(/"/g, '&quot;')}"
+  data-bs-product-id="${product.id}"
 >
   <div class="card h-100 border-0 p-3">
 
-    <img
-      class="card-img-top object-fit-contain rounded-3"
-      height="230vh"
-      src=${product.image ?? "/assets/placeholder-img.png"}
-      alt=${product.title ?? "..."}
-    />
+    <div class="card-img-top placeholder-glow">
+      <img
+        class="card-img-top object-fit-contain rounded-3 ${product.image ? '' : 'placeholder'}"
+        height="230vh"
+        src=${product.image ?? "/assets/placeholder-img.png"}
+        alt=${product.title ?? "..."}
+      />
+    </div>
 
     <div class="card-body d-flex align-items-center">
       <h1 class="card-title placeholder-glow w-100 fs-4">
@@ -52,7 +54,7 @@ export const Products = products => `
  */
 export const ProductsPerCategory = (category, products) => `
 <div class="container-fluid px-5"> 
-  <h1 category-index="-1" class="fw-semibold text-center my-4 my-md-5 placeholder-glow">
+  <h1 class="fw-semibold text-center my-4 my-md-5 placeholder-glow">
     ${
       toTitle(category) ??
       `<span class="placeholder col-3 rounded-4"></span>`

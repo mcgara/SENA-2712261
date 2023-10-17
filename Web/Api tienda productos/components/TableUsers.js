@@ -38,13 +38,15 @@ export const TableBodyUsers = users => `
 
 /** @param {IUser[]} users */
 export const TableUsers = users => `
-<table class="table table-striped">
+<div class="container-fluid">
+  <table class="table table-light table-striped border border-3">
 
-  ${TableHeadUsers()}
+    ${TableHeadUsers()}
 
-  ${TableBodyUsers(users)}
+    ${TableBodyUsers(users)}
 
-</table>
+  </table>
+</div>
 `;
 
 export default TableUsers;

@@ -9,7 +9,7 @@ import { shuffleArray } from '../utils/index.js';
  */
 export const useProducts = (callback, shuffle=true) =>
   API.products()
-    .then(products => !shuffle ? products : shuffleArray(products))
+    .then(products => shuffle === true ? shuffleArray(products) : products)
     .then(callback);
 
 /** @type {string[]} */

@@ -19,12 +19,16 @@ export const NavBar = () => `
     <div class="d-flex">
       <div>
         <button
-          class="btn btn-primary icon-link"
+          class="btn btn-primary icon-link position-relative"
           data-bs-toggle="collapse"
-          data-bs-target="#collapseToggleCart"
+          data-bs-target="#product-collapse-cart"
         >
           <span class="material-symbols-outlined">shopping_cart</span>
           Cart
+
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger visually-hidden">
+            0
+          </span>
         </button>
       </div>
       <form class="d-flex mx-5" role="search">
@@ -32,8 +36,8 @@ export const NavBar = () => `
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
       <div>
-        <button class="btn btn-outline-secondary text-white">Sign In</button>
-        <button class="btn btn-outline-info">Sign Up</button>
+        <button index-page page-name="SignIn" class="btn btn-outline-secondary text-white">Sign In</button>
+        <button index-page page-name="SignUp" class="btn btn-outline-info">Sign Up</button>
       </div>
     </div>
   </div>

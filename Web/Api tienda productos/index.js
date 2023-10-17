@@ -3,7 +3,9 @@ import Pages from './hooks/pages/index.js';
 /** @type {Record<string, (element: Element) => void>} */
 const pages = {
   products: Pages.useProducts,
-  users: Pages.useTableUsers
+  users: Pages.useTableUsers,
+  signup: Pages.useSignUp,
+  signin: Pages.useSignIn
 }
 const pagesNames = Object.keys(pages);
 
@@ -16,8 +18,8 @@ function setIndexPage(elementAction) {
   const page = pages[indexPageName];
   page(index);
 
-  const onClickSetPageElements = index.querySelectorAll(`[${index.id}]`);
-  onClickSetPageElements.forEach(
+  const elementsOnClickSetPage = index.querySelectorAll(`[${index.id}]`);
+  elementsOnClickSetPage.forEach(
     element => element.addEventListener('click', () => setIndexPage(element))
   );
 }

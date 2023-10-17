@@ -1,11 +1,12 @@
 export function shuffleArray(array=[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const temp = array[i];
+  const copyArray = [...array];
+  for (let i = copyArray.length - 1; i > 0; i--) {
+    const temp = copyArray[i];
     const ran = Math.floor(Math.random() * (i + 1));
-    array[i] = array[ran];
-    array[ran] = temp;
+    copyArray[i] = copyArray[ran];
+    copyArray[ran] = temp;
   }
-  return array;
+  return copyArray;
 }
 
 export function generateRandom(max, min=0) {
