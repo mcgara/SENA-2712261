@@ -1,0 +1,16 @@
+[data-bs-target="#product-modal"]:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+@keyframes placeholder-glow {
+  50% { opacity: .2; }
+}
+
+img[src$="placeholder-img.png"] {
+  filter: brightness(80%);
+  animation: placeholder-glow 2s ease-in-out 0s infinite;
+}
+img[src$="placeholder-img.png"]:hover {
+  cursor: wait;
+}

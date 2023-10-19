@@ -1,71 +1,39 @@
-import { FromElementToElement, FromRequestToElement } from "./fromTo.js";
+import Component from '../Component/index.js';
 
-/**
- * @template {typeof HTMLElement} T
- * @param {T} ClassHTMLElement
- * @return {ReturnType<typeof FromElementToElement<T>>}
- */
-export const HTMLMainTags = ClassHTMLElement =>
-class MainTag extends FromElementToElement(ClassHTMLElement) {
-  get fromThis() { return true; }
-  get fromProp() { return this.getAttribute("from-prop") ?? "innerHTML"; }
-  get toThis() { return false; }
-  get removeThis() { return true; }
-}
+// TODO: Component will insert data in a position specific 
 
-export class HTMLHead extends HTMLMainTags(HTMLElement) {
-  static get tagName() { return "head"; }
+export class HTMLHead extends Component {
+  static get tagName() { return 'head'; }
+  static get render() { return null; }
+  removeOnConnected = true;
 
-  constructor () {
-    super();
-    this.to = this.ownerDocument.head;
+  build() {
+    this.ownerDocument.head.innerHTML += this.innerHTML;
   }
 }
 
-export class HTMLBody extends HTMLMainTags(HTMLElement) {
-  static get tagName() { return "body"; }
+export class HTMLBody extends Component {
+  static get tagName() { return 'body'; }
+  static get render() { return null; }
+  removeOnConnected = true;
 
-  constructor () {
-    super();
-    this.to = this.ownerDocument.body;
+  build() {
+    this.ownerDocument.body.insertAdjacentHTML('beforeend', this.innerHTML);
   }
 }
 
-export class HTMLTitle extends HTMLMainTags(HTMLTitleElement) {
-  static get tagName() { return "title" }
-  static get tagExtends() { return "title" }
+export class HTMLTitle extends Component {
+  static get tagName() { return 'title'; }
+  static get render() { return null; }
+  removeOnConnected = true;
 
-  get fromProp() { return "innerHTML"; }
-  get toProp() { return "title"; }
-
-  constructor () {
-    super();
-    this.to = this.ownerDocument;
+  build() {
+    this.ownerDocument.title = this.innerHTML;
   }
-}
-
-export class HTMLPage extends FromRequestToElement(HTMLElement) {
-  static get tagName() { return "page"; }
-
-  get insertTo() { return "outer"; }
-  get canBuild() { return true; }
-
-  constructor () {
-    super();
-    this.to = this.ownerDocument.body;
-  }
-}
-
-export class HTMLPart extends FromRequestToElement(HTMLElement) {
-  static get tagName() { return "part"; }
-  get toThis() { return true; }
-  get canBuild() { return true; }
 }
 
 export default {
   Head: HTMLHead,
   Body: HTMLBody,
-  Title: HTMLTitle,
-  Page: HTMLPage,
-  Part: HTMLPart
+  Title: HTMLTitle
 }
