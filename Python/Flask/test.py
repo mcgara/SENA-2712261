@@ -1,3 +1,5 @@
-from services.apis.RandomUser import get_random_user
+from run import run_app
+from apps.sena import use_app
 
-print(get_random_user()["name"]["first"])
+def run_test():
+  run_app(use_app)
