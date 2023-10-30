@@ -1,4 +1,5 @@
 from typing import NewType, Callable, TypeVar, ParamSpec
+from functools import wraps
 from os import path, environ
 import json_stream
 
@@ -26,12 +27,21 @@ def get_env(prefix: str):
   return remove_env_prefix(prefix, env_per_prefix)
 
 def once_callable(__callable: Callable[P, T]) -> Callable[P, T]:
-  is_once_callable = False
-  callabled_value = None
-  def callabled(*args: P.args, **kwargs: P.kwargs):
-    if not is_once_callable: callabled_value = __callable(*args, **kwargs)
-    return callabled_value
-  return callabled
+  wraps(__callable)
+  is_once_call = False
+  call_value = None
+  
+  def wrapper(*args: P.args, **kwargs: P.kwargs):
+    if not wrapper.__globals__["__is_once_call"]:
+      wrapper.__globals__["__call_value"] = __callable(*args, **kwargs)
+      wrapper.__globals__["__is_once_call"] = True
+    return wrapper.__globals__["__call_value"]
+
+  wrapper.__globals__.update({
+    "__is_once_call": is_once_call,
+    "__call_value": call_value
+  })
+  return wrapper
 
 def use_env(name: str):
-  return once_callable(lambda: get_env(name + "_"))
+  return once_callable(lambda: get_env(name.upper() + "_"))
