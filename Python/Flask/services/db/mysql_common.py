@@ -1,8 +1,8 @@
 from flask_mysqldb import MySQLdb
 
-Connections = MySQLdb.Connection
+Connection = MySQLdb.Connection
 
-def findby_id(db: Connections, table_name: str):
+def findby_id(db: MySQLdb.Connection, table_name: str):
   query = f"SELECT * FROM `{table_name}` WHERE `id` = ?"
   cursor: MySQLdb.cursors.Cursor = db.cursor()
   

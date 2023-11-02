@@ -1,8 +1,9 @@
 from flask import Flask, Config
 from utils import use_env, once_callable
+from apps.sena import use_app
 from services.db.mysql import create_connection
-
-__all__ = ["use_config", "use_env", "APP_NAME", "use_app"]
+from services.apps.sena import AppDB
+from routes.sena import AppRoutes
 
 APP_NAME = "SENA"
 use_env = use_env("APP_" + APP_NAME)
@@ -31,3 +32,14 @@ def use_mysqldb():
   app = use_app()
   mysql = create_connection(app)
   return mysql
+
+@once_callable
+def use_app_db():
+  connection = use_mysqldb()
+  appDB = AppDB(connection)
+  return appDB
+
+@once_callable
+def use_app_routes():
+  app = use_app()
+  appDB = use_app_db()
