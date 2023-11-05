@@ -1,25 +1,31 @@
 from flask import Flask, jsonify
-from services.apps.sena import AppDB
+from services.apps.sena import ProgramaDB
+from utils import once_callable
 
-def programa_findby_id(app: Flask, appDB: AppDB):
-  db = appDB.use_programa()
-  
-  @app.route("/programa/<id:int>")
-  def findby_id(id: int | str):
+def findby_id(app: Flask, db: ProgramaDB):
+  @app.route("/programa/<int:id>")
+  def programa_findby_id(id: int):
     programa = db.findy_id(id)
     response = { "error": "programa not found" }
     if not programa == None: response = programa
     return jsonify(response)
   
+  # IDEA: return router cleaner handle
 
-def create(app: Flask, appDB: AppDB):
-  class ProgramaRoute:
-    @staticmethod
-    def findby_id():
-      programa_findby_id(app, appDB)
 
-    @staticmethod
-    def setAllRoutes():
-      ProgramaRoute.findby_id()
+def setAllRoutes(app: Flask, db: ProgramaDB):
+  findby_id(app, db)
   
-  return ProgramaRoute
+
+class ProgramaRouter:
+  def findby_id(): ...
+  def setAllRoutes(): ...
+  
+def create_programa(app: Flask, db: ProgramaDB) -> ProgramaRouter:
+  global ProgramaRouter
+  
+  class ProgramaRouter(ProgramaRouter):
+    findby_id = once_callable(lambda: findby_id(app, db))
+    setAllRoutes = once_callable(lambda: setAllRoutes(app, db))
+    
+  return ProgramaRouter

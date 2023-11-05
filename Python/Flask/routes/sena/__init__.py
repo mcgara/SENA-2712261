@@ -2,22 +2,27 @@ from flask import Flask
 from services.apps.sena import AppDB
 from utils import once_callable
 
-import aprendiz
-import programa
+from .aprendiz import create_aprendiz, AprendizRouter
+from .programa import create_programa, ProgramaRouter
+
+def aprendiz_router(app: Flask, appDB: AppDB):
+  db = appDB.use_aprendiz()
+  return create_aprendiz(app, db)
+
+def programa_router(app: Flask, appDB: AppDB):
+  db = appDB.use_programa()
+  return create_programa(app, db)
 
 class AppRoutes:
-  app: Flask
-  appDB: AppDB
-
-  def __init__(self, app: Flask, appDB: AppDB):
-    self.app = app
-    self.appDB = appDB
+  def use_aprendiz() -> AprendizRouter: ...
+  def use_programa() -> ProgramaRouter: ...
   
-  @once_callable
-  def use_aprendiz(self):
-    return aprendiz.create(self.app, self.appDB)
+def create_routes(app: Flask, appDB: AppDB) -> AppRoutes:
+  global AppRoutes
+  
+  class AppRoutes(AppRoutes):
+    use_aprendiz = once_callable(lambda: aprendiz_router(app, appDB))
+    use_programa = once_callable(lambda: programa_router(app, appDB))
 
-  @once_callable
-  def use_programa(self):
-    return programa.create(self.app, self.appDB)
+  return AppRoutes
 
