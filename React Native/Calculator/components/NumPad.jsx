@@ -1,39 +1,52 @@
+import { useContext } from 'react'
 import { View, StyleSheet } from 'react-native'
-import ButtonPad from './ButtonPad'
-import { signsNumPad as signs } from '../hooks/useNumPad'
+import NumPadButton from './NumPadButton'
+import Sb from '../constants/symbolsNumPad'
+import { toArray } from '../utils'
+import { DisplayContext } from '../contexts/Display'
 
-export function NumPad() {
+/**
+ * @typedef {{
+ *   style?: import('./types').ViewStyleProp
+ * }} NumPadProps
+ * @type {import('react').FC<NumPadProps>}
+ * @param {NumPadProps}
+ */
+export function NumPad({ style }) {
+  style = toArray(style)
+  const displayValue = useContext(DisplayContext)
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, ...style]}>
       <View style={[styles.row]}>
-        <ButtonPad text={signs.bs} scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text={'x\u00B2'} scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text={'\u221A'} scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text={'\u00F7'} scale={0.166} textStyle={styles.text}/>
+        <NumPadButton symbol={Sb.bs} style={styles.buttonBs}/>
+        <NumPadButton symbol={Sb.expon} style={styles.buttonExpon}/>
+        <NumPadButton symbol={Sb.root}/>
+        <NumPadButton symbol={Sb.division}/>
       </View>
       <View style={[styles.row]}>
-        <ButtonPad text='7' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='8' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='9' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text={'\u00D7'} scale={0.166} textStyle={styles.text}/>
+        <NumPadButton symbol={Sb.seven}/>
+        <NumPadButton symbol={Sb.eight}/>
+        <NumPadButton symbol={Sb.nine}/>
+        <NumPadButton symbol={Sb.times}/>
       </View>
       <View style={[styles.row]}>
-        <ButtonPad text='4' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='5' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='6' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text={'\u2212'} scale={0.166} textStyle={styles.text}/>
+        <NumPadButton symbol={Sb.four}/>
+        <NumPadButton symbol={Sb.five}/>
+        <NumPadButton symbol={Sb.six}/>
+        <NumPadButton symbol={Sb.minus}/>
       </View>
       <View style={[styles.row]}>
-        <ButtonPad text='1' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='2' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='3' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='+' scale={0.166} textStyle={styles.text}/>
+        <NumPadButton symbol={Sb.one}/>
+        <NumPadButton symbol={Sb.two}/>
+        <NumPadButton symbol={Sb.three}/>
+        <NumPadButton symbol={Sb.plus}/>
       </View>
       <View style={[styles.row]}>
-        <ButtonPad text='+/-' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='0' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='.' scale={0.166} textStyle={styles.text}/>
-        <ButtonPad text='=' scale={0.166} textStyle={styles.text}/>
+        <NumPadButton symbol={Sb.plusminus}/>
+        <NumPadButton symbol={Sb.zero}/>
+        <NumPadButton symbol={Sb.dot}/>
+        <NumPadButton symbol={Sb.equal} style={styles.buttonEqual}/>
       </View>
     </View>
   )
@@ -45,13 +58,22 @@ export const styles = StyleSheet.create({
     height: '60%',
     position: 'absolute',
     top: '40%',
+    borderWidth: 1,
+    borderColor: '#ff7200'
   },
   row: {
     flexDirection: 'row'
   },
-  text: {
-    fontSize: 36
+  buttonEqual: {
+    backgroundColor: '#ff7200'
+  },
+  buttonBs: {
+    backgroundColor: '#ff4500',
+    paddingRight: 5
+  },
+  buttonExpon: {
+    paddingLeft: 10
   }
-})  
+})
 
 export default NumPad
