@@ -3,22 +3,20 @@ import { DisplayContext } from '../contexts/Display'
 
 /**
  * @typedef {import('../constants/symbolsNumPad').SymbolsNumPad} SymbolsNumPad
- * @typedef {import('../contexts/Display').DisplayValueContext} DisplayValueContext
- * @typedef {import('../contexts/Display').SetDisplayValue} SetDisplayValue
+ * @typedef {import('../contexts/Display').StateDisplayData} StateDisplayData 
  * @typedef {{
- *   display?: DisplayValueContext,
+ *   display?: StateDisplayData,
  *   symbol?: { [P in keyof SymbolsNumPad]: SymbolsNumPad[P] }[keyof SymbolsNumPad]
  * }} UseNumPadButtonProps
  */
 
 /** @param {UseNumPadButtonProps} */
 export function useNumPadButtonOnPress({ symbol, display }) {
-  const onPress = useCallback(() => {
+  return useCallback(() => {
     if (!display || !symbol) return
-    display = { ...display, showValue: symbol }
-  }, [symbol, display])
-
-  return onPress
+    const [, setDisplay] = display
+    setDisplay(value => ({ ...value, showData: symbol }))
+  }, [])
 }
 
 // --- Bad Idea ---

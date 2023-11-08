@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { DisplayContext } from '../contexts/Display'
 import { toArray } from '../utils'
@@ -12,8 +12,13 @@ import { toArray } from '../utils'
  * @param {DisplayProps}
  */
 export function Display({ style, textStyle }) {
-  const { displayValue } = useContext(DisplayContext)
-  useEffect(() => {}, [displayValue])
+  const [displayData] = useContext(DisplayContext)
+  const [, updateDisplay] = useState()
+
+  const forceUpdateDisplay = useCallback(() => updateDisplay({}), [])
+  useEffect(() => {
+    displayData.events.afterChange.push(forceUpdateDisplay)
+  }, [])
 
   style = toArray(style)
   textStyle = toArray(textStyle)
@@ -22,9 +27,9 @@ export function Display({ style, textStyle }) {
     <View style={[styles.container, ...style]}>
       <Text style={[styles.text, ...textStyle]}>
         {
-          displayValue.result !== null
-          ? displayValue.showResult
-          : displayValue.showValue
+          displayData.value.result !== null
+          ? displayData.value.showResult
+          : displayData.value.showData
         }
       </Text>
     </View>

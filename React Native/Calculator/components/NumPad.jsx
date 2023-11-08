@@ -13,8 +13,17 @@ import { DisplayContext } from '../contexts/Display'
  * @param {NumPadProps}
  */
 export function NumPad({ style }) {
+  // const [displayData, setDisplayData] = useContext(DisplayContext)
   style = toArray(style)
-  const displayValue = useContext(DisplayContext)
+
+  // const handleOnPress = () => {
+  //   setDisplayData(value => ({ ...value, showData: '110' }))
+  //   console.log('hello NumPad 1', displayData)
+  // }
+  // const handleOnPress2 = () => {
+  //   setDisplayData(value => ({ ...value, showData: '220' }))
+  //   console.log('hello NumPad 2', displayData)
+  // }
 
   return (
     <View style={[styles.container, ...style]}>

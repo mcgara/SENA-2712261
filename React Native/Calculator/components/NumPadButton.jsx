@@ -1,5 +1,6 @@
 import { Pressable, Text, StyleSheet, useWindowDimensions } from 'react-native'
 import { toArray } from '../utils'
+import useNumPadButton from '../hooks/useNumPadButton'
 
 export const defaultNumPadButton = {
   scale: 0.1655,
@@ -12,14 +13,15 @@ export const defaultNumPadButton = {
  *   symbolStyle?: import('./types').TextStyleProp,
  *   size?: number,
  *   scale?: number,
- *   displayValue?: import('../contexts/Display').DisplayValueContext
+ *   display?: 
  * }} NumPadButtonProps
  * @type {import('react').FC<NumPadButtonProps>}
  * @param {NumPadButtonProps} props
  */
 export function NumPadButton(props) {
-  let { style, symbolStyle, scale, size, symbol, displayValue } = props
+  let { style, symbol, symbolStyle, scale, size } = props
   const { width, height } = useWindowDimensions()
+  const { onPress } = useNumPadButton({ symbol,  })
 
   style = toArray(style)
   symbolStyle = toArray(symbolStyle)
@@ -28,7 +30,7 @@ export function NumPadButton(props) {
   const styles = getStyles(size)
 
   return (
-    <Pressable { ...props } style={[styles.button, ...style]} onPress={onPress}>
+    <Pressable { ...props } style={[styles.button, ...style]}>
       <Text style={[styles.symbol, ...symbolStyle]}>{symbol}</Text>
     </Pressable>
   )
