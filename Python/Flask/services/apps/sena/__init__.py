@@ -1,20 +1,18 @@
 from services.db.mysql_common import Connection
 from utils import once_callable
 
-import aprendiz
-import programa
+from .aprendiz import create_aprendiz, AprendizDB
+from .programa import create_programa, ProgramaDB
 
 class AppDB:
-  connection: Connection
+  def use_aprendiz() -> AprendizDB: ...
+  def use_programa() -> ProgramaDB: ...
 
-  def __init__(self, connection: Connection):
-    self.connection = connection
+def create_app_db(connection: Connection) -> AppDB:
+  global AppDB
   
-  @once_callable
-  def use_aprendiz(self):
-    return aprendiz.create(self.connection)
-
-  @once_callable
-  def use_programa(self):
-    return programa.create(self.connection)
-
+  class AppDB(AppDB):
+    use_aprendiz = once_callable(lambda: create_aprendiz(connection))
+    use_programa = once_callable(lambda: create_programa(connection))
+  
+  return AppDB

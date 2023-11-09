@@ -1,25 +1,31 @@
 from flask import Flask, jsonify
-from services.apps.sena import AppDB
+from services.apps.sena import AprendizDB
+from utils import once_callable
 
-def aprendiz_findby_id(app: Flask, appDB: AppDB):
-  db = appDB.use_aprendiz()
-  
-  @app.route("/aprendiz/<id:int>")
-  def findby_id(id: int | str):
-    aprendiz = db.findy_id(id)
+def findby_id(app: Flask, db: AprendizDB):
+  @app.route("/aprendiz/<int:id>")
+  def aprendiz_findby_id(id: int):
+    aprendiz = db.findby_id(id)
     response = { "error": "aprendiz not found" }
     if not aprendiz == None: response = aprendiz
     return jsonify(response)
   
+  # IDEA: return router cleaner handle
 
-def create(app: Flask, appDB: AppDB):
-  class AprendizRoute:
-    @staticmethod
-    def findby_id():
-      aprendiz_findby_id(app, appDB)
 
-    @staticmethod
-    def setAllRoutes():
-      AprendizRoute.findby_id()
+def setAllRoutes(app: Flask, db: AprendizDB):
+  findby_id(app, db)
   
-  return AprendizRoute
+
+class AprendizRouter:
+  def findby_id(): ...
+  def setAllRoutes(): ...
+  
+def create_aprendiz(app: Flask, db: AprendizDB) -> AprendizRouter:
+  global AprendizRouter
+  
+  class AprendizRouter(AprendizRouter):
+    findby_id = once_callable(lambda: findby_id(app, db))
+    setAllRoutes = once_callable(lambda: setAllRoutes(app, db))
+    
+  return AprendizRouter

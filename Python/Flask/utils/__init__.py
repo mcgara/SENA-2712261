@@ -1,5 +1,5 @@
 from typing import NewType, Callable, TypeVar, ParamSpec
-from functools import wraps
+from functools import wraps, update_wrapper
 from os import path, environ
 import json_stream
 
@@ -26,22 +26,27 @@ def get_env(prefix: str):
   env_per_prefix = get_env_prefix(prefix)
   return remove_env_prefix(prefix, env_per_prefix)
 
+class _once_callable(object):
+  __callable__: Callable[P, T]
+  __callable_is_once__: bool
+  __callable_value__: T
+  
+  def __init__(self, __callable: Callable[P, T]):
+    self.__callable__ = __callable
+    self.__callable_is_once__ = False
+    self.__callable_value__ = None
+    update_wrapper(self, __callable)
+    
+  def __call__(self, *args: P.args, **kwargs: P.kwargs):
+    if not self.__callable_is_once__:
+      self.__callable_value__ = self.__callable__(*args, **kwargs)
+      self.__callable_is_once__ = True
+    return self.__callable_value__
+  
 def once_callable(__callable: Callable[P, T]) -> Callable[P, T]:
   wraps(__callable)
-  is_once_call = False
-  call_value = None
-  
-  def wrapper(*args: P.args, **kwargs: P.kwargs):
-    if not wrapper.__globals__["__is_once_call"]:
-      wrapper.__globals__["__call_value"] = __callable(*args, **kwargs)
-      wrapper.__globals__["__is_once_call"] = True
-    return wrapper.__globals__["__call_value"]
-
-  wrapper.__globals__.update({
-    "__is_once_call": is_once_call,
-    "__call_value": call_value
-  })
-  return wrapper
+  return _once_callable(__callable)
 
 def use_env(name: str):
   return once_callable(lambda: get_env(name.upper() + "_"))
+
