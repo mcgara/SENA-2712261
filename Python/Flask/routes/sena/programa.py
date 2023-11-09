@@ -5,7 +5,7 @@ from utils import once_callable
 def findby_id(app: Flask, db: ProgramaDB):
   @app.route("/programa/<int:id>")
   def programa_findby_id(id: int):
-    programa = db.findy_id(id)
+    programa = db.findby_id(id)
     response = { "error": "programa not found" }
     if not programa == None: response = programa
     return jsonify(response)

@@ -5,6 +5,7 @@ from utils import once_callable
 class Programa(TypedDict):
   id: int
   nombre: str
+  ficha: int
 
 def findby_id(connection: common.Connection, id: int | str):
   callable = common.findby_id(connection, 'programa')
