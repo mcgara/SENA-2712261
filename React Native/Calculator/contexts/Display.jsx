@@ -1,49 +1,41 @@
 import { createContext, useMemo } from 'react'
+import Calculator from '../calculator'
 
 /**
- * @typedef {{
- *   data: string | null,
- *   showData: string,
- *   result: number | null,
- *   showResult: string
- * }} DisplayData
- * @typedef {(newDisplay: DisplayData | (displayData: DisplayData) => DisplayData) => void} SetDisplayData
+ * @typedef {Calculator} DisplayData
+ * @typedef {(newDisplay: DisplayData | (displayData: DisplayData) => DisplayData) => void} SetStateDisplayData
  */
 
 /**
  * @typedef {{
  *   value: DisplayData,
  *   events: {
- *     beforeChange: Array<() => void>,
- *     afterChange: Array<() => void>
+ *     beforeChange: Set<() => void>,
+ *     afterChange: Set<() => void>
  *   }
  * }} StateValueDisplayData
- * @typedef {[StateValueDisplayData, SetDisplayData]} StateDisplayData
+ * @typedef {[StateValueDisplayData, SetStateDisplayData]} StateDisplayData
  * @return {StateDisplayData}
  */
 export const createStateDisplayData = () => {
   /** @type {StateValueDisplayData} */
   const displayData = {
-    value: {
-      data: null,
-      showData: '0',
-      result: null,
-      showResult: '0'
-    },
+    value: new Calculator(),
     events: {
-      beforeChange: [],
-      afterChange: []
+      beforeChange: new Set(),
+      afterChange: new Set()
     }
   }
 
   /**
-   * @type {SetDisplayData}
+   * @type {SetStateDisplayData}
    */
-  const setDisplayData = (newDisplay) => {
-    for (const dispatch of displayData.events.beforeChange) dispatch()
+  const setDisplayData = (newDisplay=null) => {
+    for (const dispatch of displayData.events.beforeChange.values()) dispatch()
     if (typeof newDisplay === 'function') newDisplay = newDisplay(displayData.value)
-    displayData.value = newDisplay
-    for (const dispatch of displayData.events.afterChange) dispatch()
+    if (newDisplay) displayData.value.update(newDisplay)
+    console.log('setDisplay', displayData.value.left, displayData.value.operator, displayData.value.right, displayData.value.result)
+    for (const dispatch of displayData.events.afterChange.values()) dispatch()
   }
 
   return [displayData, setDisplayData]

@@ -2,31 +2,29 @@ import { useContext, useCallback, useMemo } from 'react'
 import { DisplayContext } from '../contexts/Display'
 
 /**
- * @typedef {import('../constants/symbolsNumPad').SymbolsNumPad} SymbolsNumPad
  * @typedef {import('../contexts/Display').StateDisplayData} StateDisplayData 
  * @typedef {{
- *   display?: StateDisplayData,
- *   symbol?: { [P in keyof SymbolsNumPad]: SymbolsNumPad[P] }[keyof SymbolsNumPad]
+ *   display: StateDisplayData,
+ *   symbol: string
  * }} UseNumPadButtonProps
  */
 
 /** @param {UseNumPadButtonProps} */
 export function useNumPadButtonOnPress({ symbol, display }) {
   return useCallback(() => {
-    if (!display || !symbol) return
     const [, setDisplay] = display
-    setDisplay(value => ({ ...value, showData: symbol }))
-  }, [])
+    setDisplay(calculator => calculator.handle(symbol))
+  }, [symbol])
 }
 
-// --- Bad Idea ---
-/** @param {UseNumPadButtonProps} */
-export function useNumPadButton({ symbol, display }) {
+/** @param {Pick<UseNumPadButtonProps, 'symbol'>} */
+export function useNumPadButton({ symbol }) {
+  const display = useContext(DisplayContext)
   const onPress = useNumPadButtonOnPress({ symbol, display })
 
   return useMemo(() => ({
     onPress
-  }), [])
+  }), [symbol])
 }
 
 export default useNumPadButton

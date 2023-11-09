@@ -12,8 +12,7 @@ export const defaultNumPadButton = {
  *   symbol?: string,
  *   symbolStyle?: import('./types').TextStyleProp,
  *   size?: number,
- *   scale?: number,
- *   display?: 
+ *   scale?: number
  * }} NumPadButtonProps
  * @type {import('react').FC<NumPadButtonProps>}
  * @param {NumPadButtonProps} props
@@ -21,7 +20,7 @@ export const defaultNumPadButton = {
 export function NumPadButton(props) {
   let { style, symbol, symbolStyle, scale, size } = props
   const { width, height } = useWindowDimensions()
-  const { onPress } = useNumPadButton({ symbol,  })
+  const defaultHandlers = useNumPadButton({ symbol })
 
   style = toArray(style)
   symbolStyle = toArray(symbolStyle)
@@ -30,7 +29,7 @@ export function NumPadButton(props) {
   const styles = getStyles(size)
 
   return (
-    <Pressable { ...props } style={[styles.button, ...style]}>
+    <Pressable { ...defaultHandlers } { ...props } style={[styles.button, ...style]}>
       <Text style={[styles.symbol, ...symbolStyle]}>{symbol}</Text>
     </Pressable>
   )

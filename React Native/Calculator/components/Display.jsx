@@ -17,7 +17,8 @@ export function Display({ style, textStyle }) {
 
   const forceUpdateDisplay = useCallback(() => updateDisplay({}), [])
   useEffect(() => {
-    displayData.events.afterChange.push(forceUpdateDisplay)
+    displayData.events.afterChange.add(forceUpdateDisplay)
+    return () => displayData.events.afterChange.delete(forceUpdateDisplay)
   }, [])
 
   style = toArray(style)
@@ -25,13 +26,15 @@ export function Display({ style, textStyle }) {
   
   return (
     <View style={[styles.container, ...style]}>
-      <Text style={[styles.text, ...textStyle]}>
-        {
-          displayData.value.result !== null
-          ? displayData.value.showResult
-          : displayData.value.showData
-        }
-      </Text>
+      <Text style={[styles.text, ...textStyle]}>{
+        !displayData.value.result
+        ? displayData.value.result
+        : displayData.value.right
+        ? displayData.value.right
+        : displayData.value.left
+        ? displayData.value.left
+        : displayData.value.left
+      }</Text>
     </View>
   )
 }
