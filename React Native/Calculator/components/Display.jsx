@@ -27,13 +27,9 @@ export function Display({ style, textStyle }) {
   return (
     <View style={[styles.container, ...style]}>
       <Text style={[styles.text, ...textStyle]}>{
-        !displayData.value.result
-        ? displayData.value.result
-        : displayData.value.right
-        ? displayData.value.right
-        : displayData.value.left
-        ? displayData.value.left
-        : displayData.value.left
+        displayData.value.result ??
+        displayData.value.right ??
+        displayData.value.left ?? 0
       }</Text>
     </View>
   )

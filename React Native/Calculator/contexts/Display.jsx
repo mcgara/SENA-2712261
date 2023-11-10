@@ -34,7 +34,6 @@ export const createStateDisplayData = () => {
     for (const dispatch of displayData.events.beforeChange.values()) dispatch()
     if (typeof newDisplay === 'function') newDisplay = newDisplay(displayData.value)
     if (newDisplay) displayData.value.update(newDisplay)
-    console.log('setDisplay', displayData.value.left, displayData.value.operator, displayData.value.right, displayData.value.result)
     for (const dispatch of displayData.events.afterChange.values()) dispatch()
   }
 

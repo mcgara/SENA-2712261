@@ -14,7 +14,7 @@ export class Calculator {
 
   /** @param {CalculateData} [data] */
   constructor(data) {
-    if (!data) data = { left: '0', result: 0 }
+    if (!data) data = { left: '0' }
     this.#data = data
   }
 

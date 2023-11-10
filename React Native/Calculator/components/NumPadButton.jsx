@@ -1,6 +1,8 @@
+import { useState, useCallback } from 'react'
 import { Pressable, Text, StyleSheet, useWindowDimensions } from 'react-native'
 import { toArray } from '../utils'
 import useNumPadButton from '../hooks/useNumPadButton'
+import { operatorsSymbols } from '../calculator/symbols'
 
 export const defaultNumPadButton = {
   scale: 0.1655,
@@ -23,13 +25,21 @@ export function NumPadButton(props) {
   const defaultHandlers = useNumPadButton({ symbol })
 
   style = toArray(style)
+  style = [...defaultHandlers.style, ...style]
   symbolStyle = toArray(symbolStyle)
 
   if (!size) size = (width + height) / 2 * (scale ?? defaultNumPadButton.scale)
   const styles = getStyles(size)
 
   return (
-    <Pressable { ...defaultHandlers } { ...props } style={[styles.button, ...style]}>
+    <Pressable
+      { ...defaultHandlers }
+      { ...props }
+      style={[
+        styles.button,
+        ...style
+      ]}
+    >
       <Text style={[styles.symbol, ...symbolStyle]}>{symbol}</Text>
     </Pressable>
   )
