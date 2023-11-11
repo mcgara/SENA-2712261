@@ -24,8 +24,7 @@ export function evaluate(data) {
   let result = NaN
   try { result = eval(evaluated) } catch {}
   data.result = result
-  console.log(evaluated, data.result)
-  return result
+  return data
 }
 
 /**
