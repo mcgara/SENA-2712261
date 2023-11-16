@@ -51,7 +51,7 @@ def create_aprendiz(connection: common.Connection) -> AprendizDB:
   class AprendizDB:
     find = use_find(connection)
     findby_id = use_findby_id(connection)
-    createe = use_create(connection)
+    create = use_create(connection)
   
   return AprendizDB
 
