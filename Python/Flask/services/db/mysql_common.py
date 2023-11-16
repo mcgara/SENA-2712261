@@ -18,8 +18,10 @@ def find(db: Connection, table_name: str):
 
   def _find(*fields: tuple[str, str | int]):
     fields_name, values_fields = normalize_fields(*fields)
-    query_fiedls = [f"`{field}` = %s" for field in fields_name]
-    query = f"SELECT * FROM `{table_name}` WHERE " + " AND ".join(query_fiedls)
+    query_fields = [f"`{field}` = %s" for field in fields_name]
+    query = f"SELECT * FROM " + table_name
+    if query_fields: query += " WHERE " + " AND ".join(query_fields) 
+
     cursor.execute(query, values_fields)
     results = list(cursor.fetchall())
     db.commit()
@@ -37,20 +39,21 @@ def findby_pk(db: Connection, table_name: str, pk_name: str):
   return _find_pk
 
 def findby_id(db: Connection, table_name: str):
-  _findby_pk = findby_pk(db, table_name, 'id')
+  _findby_pk = findby_pk(db, table_name, "id")
   def _findby_id(id: int | str): return _findby_pk(id)
   return _findby_id
 
 def parser_fields_query(*fields_name: str):
-  query_fiedls = ""
+  query_fields = ""
   query_values = ""
   for field in fields_name:
-    query_fiedls += f'`{field}`,'
-    query_values += r'%s,'
-  query_fiedls = query_fiedls[0, -1]
-  query_values = query_values[0, -1]
+    query_fields += f"`{field}`,"
+    query_values += r"%s,"
 
-  return query_fiedls, query_values
+  query_fields = query_fields.removesuffix(",")
+  query_values = query_values.removesuffix(",")
+
+  return query_fields, query_values
 
 def create(db: Connection, table_name: str):
   cursor: Cursor = db.cursor()
@@ -58,7 +61,7 @@ def create(db: Connection, table_name: str):
   def _create(*fields: tuple[str, str | int]):
     fields_name, values_fields = normalize_fields(*fields)
     query_fields, query_values = parser_fields_query(*fields_name)
-    query = f"INSERT INTO `{table_name}`({query_fields}) VALUES (${query_values})"
+    query = f"INSERT INTO `{table_name}`({query_fields}) VALUES ({query_values})"
     cursor.execute(query, values_fields)
     db.commit()
     # return ??? resolve or exception
