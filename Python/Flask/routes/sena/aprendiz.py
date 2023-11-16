@@ -22,7 +22,7 @@ def findby_id(app: Flask, db: AprendizDB):
   # IDEA: return router cleaner handle
 
 def create(app: Flask, db: AprendizDB):
-  @app.route("/aprendiz")
+  @app.route("/aprendiz", methods=["POST"])
   def aprendiz_create():
     fields = request.args.to_dict()
     db.create(fields)
