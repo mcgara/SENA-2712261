@@ -12,7 +12,7 @@ class Aprendiz(TypedDict):
 
 def find(connection: common.Connection, fields: Aprendiz):
   callable = common.find(connection, 'aprendiz')
-  result: list[Aprendiz] = callable(*fields.items())
+  result: list[Aprendiz] = callable(**fields)
   return result
 
 def findby_id(connection: common.Connection, id: int | str):
@@ -22,7 +22,7 @@ def findby_id(connection: common.Connection, id: int | str):
 
 def create(connection: common.Connection, fields: Aprendiz):
   callable = common.create(connection, 'aprendiz')
-  callable(*fields.items())
+  callable(**fields)
 
 @once_callable
 def use_find(connection: common.Connection):

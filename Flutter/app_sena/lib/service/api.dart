@@ -41,6 +41,6 @@ class ApiEnv {
 }
 
 class ApiRoutes {
-  static final aprendiz = Router('/aprendiz');
-  static final programa = Router('/programa');
+  static final aprendiz = Router.fromList(['${ApiEnv.url}/', 'aprendiz']);
+  static final programa = Router.fromList(['${ApiEnv.url}/', 'programa']);
 }
