@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'api/api.dart' show ApiEnv, ApiRoutes;
+import 'dart:async';
+import './widgets/aprendiz.dart' show Aprendiz;
+import './widgets/programa.dart' show Programa;
 
 Future<void> main() async {
   await dotenv.load();
-
   runApp(const MyApp());
 }
 
@@ -22,7 +23,11 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Hello Api')
+          title: const Text(
+            'API de aprendices y programas',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 27),
+            textAlign: TextAlign.center,
+          )
         ),
         body: const MyApi(),
       ),
@@ -30,14 +35,48 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyApi extends StatelessWidget {
+class MyApi extends StatefulWidget {
   const MyApi({super.key});
 
   @override
+  MyApiState createState() => MyApiState();
+}
+
+class MyApiState extends State<MyApi> {
+  bool toggleButton = false;
+
+  void setToggleButton() {
+    setState(() {
+      toggleButton = !toggleButton;
+    });
+  }
+  
+  @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Text(ApiEnv.url.toString()),
-      Text(ApiRoutes.aprendiz.getAll())
-    ]);
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              toggleButton ? 'Aprendices' : 'Programas',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+                color: Colors.grey.shade800
+              ),
+            ),
+            IconButton(
+              onPressed: setToggleButton,
+              icon: const Icon(Icons.circle_rounded),
+              iconSize: 55,
+              alignment: Alignment.center,
+              color: toggleButton ? Colors.tealAccent : Colors.amber.shade900
+            )
+          ],
+        ),
+        Expanded(child: toggleButton ? const Aprendiz() : const Programa())
+      ],
+    );
   }
 }

@@ -6,9 +6,9 @@ def find(app: Flask, db: AprendizDB):
   @app.route("/aprendiz")
   def aprendiz_find():
     fields = request.args.to_dict()
-    aprendiz = db.find(fields)
+    list_aprendiz = db.find(fields)
     response = { "error": "aprendiz not found" }
-    if not aprendiz == None: response = aprendiz
+    if not list_aprendiz == None: response = list_aprendiz
     return jsonify(response)
   
 def findby_id(app: Flask, db: AprendizDB):
