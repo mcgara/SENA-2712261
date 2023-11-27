@@ -101,3 +101,40 @@ class ProgramaState extends State<Programa> {
     );
   }
 }
+
+class FormPrograma extends StatefulWidget {
+  TextEditingController nombre = TextEditingController();
+  TextEditingController ficha = TextEditingController();
+  
+  FormPrograma({super.key});
+
+  @override
+  FormProgramaState createState() => FormProgramaState();
+}
+
+class FormProgramaState extends State<FormPrograma> {
+  void submitCreateProgram() {
+    setState(() {
+
+    });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextField(
+          controller: widget.nombre,
+          decoration: const InputDecoration(hintText: 'Digite Nombre del Programa')
+        ),
+        TextField(
+          controller: widget.ficha,
+          decoration: const InputDecoration(hintText: 'Digite Ficha del Programa'),
+          keyboardType: TextInputType.number
+        ),
+        ElevatedButton(onPressed: submitCreateProgram, child: const Text('Aceptar'))
+      ],
+    );
+  }
+}
