@@ -18,7 +18,7 @@ class ApiPrograma {
   });
 
   static Future<List<ApiPrograma>> get({
-    int? id,
+    ApiProgramaId? id,
     String? nombre,
     int? ficha,
   }) async {
@@ -61,32 +61,26 @@ class ApiPrograma {
   }
 
   static Future<Map<String, dynamic>> create({
-    required int id,
+    ApiProgramaId? id,
     required String nombre,
     required int ficha,
   }) async {
     var url = router.toUri();
+    if (url == null) throw Exception('URL API is invalid');
     var body = {
-      'id': id,
       'nombre': nombre,
       'ficha': ficha
     };
+    if (id != null) body.addAll({ 'id': id });
 
-    if (url == null) throw Exception('URL API is invalid');
-
-    var response = await http.post(url, body: body);
+    var response = await http.post(
+      url,
+      body: json.encode(body),
+      headers: { 'Content-Type': 'application/json' }
+    );
     var status = response.statusCode;
     if (!(status >= 200 && status < 300)) throw Exception('Error of API');
     
-    List<dynamic> list = json.decode(response.body);
-    List<ApiPrograma> listPrograma = List.from(
-      list.map((programa) => ApiPrograma(
-        id: programa['id'],
-        nombre: programa['nombre'],
-        ficha: programa['ficha']
-      ))
-    );
-    
-    return listPrograma;
+    return json.decode(response.body) as Map<String, dynamic>;
   }
 }

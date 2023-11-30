@@ -7,7 +7,7 @@ def find(app: Flask, db: ProgramaDB):
   def programa_find():
     fields = request.args.to_dict()
     list_programa = db.find(fields)
-    response = { "error": "programa not found" }
+    response = { "message": "programa not found", "status": 1 }
     if not list_programa == None: response = list_programa
     return jsonify(response)
   
@@ -15,7 +15,7 @@ def findby_id(app: Flask, db: ProgramaDB):
   @app.route("/programa/<int:id>")
   def programa_findby_id(id: int):
     programa = db.findby_id(id)
-    response = { "error": "programa not found per id" }
+    response = { "message": "programa not found per id", "status": 1 }
     if not programa == None: response = programa
     return jsonify(response)
   
@@ -24,9 +24,9 @@ def findby_id(app: Flask, db: ProgramaDB):
 def create(app: Flask, db: ProgramaDB):
   @app.route("/programa", methods=["POST"])
   def programa_create():
-    fields = request.args.to_dict()
+    fields = request.get_json()
     db.create(fields)
-    response = { "create": "programa create" }
+    response = { "message": "programa create", "status": 0 }
     return jsonify(response)
 
 def setAllRoutes(app: Flask, db: ProgramaDB):

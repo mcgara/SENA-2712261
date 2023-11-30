@@ -72,4 +72,34 @@ class ApiAprendiz {
   static Future<List<ApiAprendiz>> getByIdPrograma(int programa) async {
     return await get(idPrograma: programa);
   }
+
+  static Future<Map<String, dynamic>> create({
+    ApiAprendizId? id,
+    required String nombres,
+    required String apellidos,
+    required String correo,
+    required String genero,
+    required int idPrograma,
+  }) async {
+    var url = router.toUri();
+    if (url == null) throw Exception('URL API is invalid');
+    var body = {
+      'nombres': nombres,
+      'apellidos': apellidos,
+      'correo': correo,
+      'genero': genero,
+      'id_programa': idPrograma
+    };
+    if (id != null) body.addAll({ 'id': id });
+
+    var response = await http.post(
+      url,
+      body: json.encode(body),
+      headers: { 'Content-Type': 'application/json' }
+    );
+    var status = response.statusCode;
+    if (!(status >= 200 && status < 300)) throw Exception('Error of API');
+    
+    return json.decode(response.body) as Map<String, dynamic>;
+  }
 }

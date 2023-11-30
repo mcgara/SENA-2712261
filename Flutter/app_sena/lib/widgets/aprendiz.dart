@@ -40,7 +40,7 @@ class AprendizEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      message ?? 'Empty aprendiz!',
+      message ?? 'No hay Aprendices!',
       style: const TextStyle(
         color: Colors.blue,
         fontSize: 20
@@ -101,6 +101,97 @@ class AprendizState extends State<Aprendiz> {
           return ListView(children: children);
         }
       },
+    );
+  }
+}
+
+class FormAprendiz extends StatefulWidget {
+  final TextEditingController nombre = TextEditingController();
+  final TextEditingController ficha = TextEditingController();
+  final TextEditingController nombres = TextEditingController();
+  final TextEditingController apellidos = TextEditingController();
+  final TextEditingController correo = TextEditingController();
+  final TextEditingController genero = TextEditingController();
+  final TextEditingController idPrograma = TextEditingController();
+
+  FormAprendiz({super.key});
+
+  @override
+  FormAprendizState createState() => FormAprendizState();
+}
+
+class FormAprendizState extends State<FormAprendiz> {
+  void notification(String message) {
+    TextButton btnAceptar = TextButton(
+      child: const Text('Aceptar'),
+      onPressed: () => Navigator.pop(context)
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text('Notification'),
+      content: Text(message),
+      actions: [btnAceptar],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => alert
+    );
+  }
+  
+  void onCreateProgram(Map<String, dynamic> response) {
+    notification(response['message'].toString());
+  }
+  
+  void submitCreateProgram() {
+    setState(() {
+      (() async {
+        int? idPrograma = int.tryParse(widget.idPrograma.text); 
+        if (idPrograma == null) {
+          notification('error el campo id programa debe ser un numero');
+          return;
+        }
+
+        final response = await ApiAprendiz.create(
+          nombres: widget.nombres.text,
+          apellidos: widget.apellidos.text,
+          correo: widget.correo.text,
+          genero: widget.genero.text,
+          idPrograma: idPrograma,
+        );
+        onCreateProgram(response);
+      })();
+    });
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextField(
+          controller: widget.nombres,
+          decoration: const InputDecoration(hintText: 'Digite los Nombres del Aprendiz')
+        ),
+        TextField(
+          controller: widget.apellidos,
+          decoration: const InputDecoration(hintText: 'Digite los Apellidos del Aprendiz'),
+        ),
+        TextField(
+          controller: widget.correo,
+          decoration: const InputDecoration(hintText: 'Digite el Correo del Aprendiz')
+        ),
+        TextField(
+          controller: widget.genero,
+          decoration: const InputDecoration(hintText: 'Digite el Genero del Aprendiz'),
+        ),
+        TextField(
+          controller: widget.idPrograma,
+          decoration: const InputDecoration(hintText: 'Digite el ID del Programa del Aprendiz'),
+          keyboardType: TextInputType.number
+        ),
+        ElevatedButton(onPressed: submitCreateProgram, child: const Text('Aceptar'))
+      ],
     );
   }
 }

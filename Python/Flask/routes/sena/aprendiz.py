@@ -7,7 +7,7 @@ def find(app: Flask, db: AprendizDB):
   def aprendiz_find():
     fields = request.args.to_dict()
     list_aprendiz = db.find(fields)
-    response = { "error": "aprendiz not found" }
+    response = { "message": "aprendiz not found", "status": 1 }
     if not list_aprendiz == None: response = list_aprendiz
     return jsonify(response)
   
@@ -15,7 +15,7 @@ def findby_id(app: Flask, db: AprendizDB):
   @app.route("/aprendiz/<int:id>")
   def aprendiz_findby_id(id: int):
     aprendiz = db.findby_id(id)
-    response = { "error": "aprendiz not found per id" }
+    response = { "message": "aprendiz not found per id", "status": 1 }
     if not aprendiz == None: response = aprendiz
     return jsonify(response)
   
@@ -24,9 +24,9 @@ def findby_id(app: Flask, db: AprendizDB):
 def create(app: Flask, db: AprendizDB):
   @app.route("/aprendiz", methods=["POST"])
   def aprendiz_create():
-    fields = request.args.to_dict()
+    fields = request.get_json()
     db.create(fields)
-    response = { "create": "aprendiz create" }
+    response = { "message": "aprendiz create", "status": 0 }
     return jsonify(response)
 
 def setAllRoutes(app: Flask, db: AprendizDB):

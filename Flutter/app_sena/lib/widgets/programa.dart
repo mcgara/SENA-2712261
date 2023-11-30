@@ -103,8 +103,8 @@ class ProgramaState extends State<Programa> {
 }
 
 class FormPrograma extends StatefulWidget {
-  TextEditingController nombre = TextEditingController();
-  TextEditingController ficha = TextEditingController();
+  final TextEditingController nombre = TextEditingController();
+  final TextEditingController ficha = TextEditingController();
   
   FormPrograma({super.key});
 
@@ -113,9 +113,42 @@ class FormPrograma extends StatefulWidget {
 }
 
 class FormProgramaState extends State<FormPrograma> {
+  void notification(String message) {
+    TextButton btnAceptar = TextButton(
+      child: const Text('Aceptar'),
+      onPressed: () => Navigator.pop(context)
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text('Notification'),
+      content: Text(message),
+      actions: [btnAceptar],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => alert
+    );
+  }
+  
+  void onCreateProgram(Map<String, dynamic> response) {
+    notification(response['message'].toString());
+  }
+  
   void submitCreateProgram() {
     setState(() {
-
+      (() async {
+        Map<String, dynamic> response = { 'message': 'error al crear el programa' };
+        try {
+          response = await ApiPrograma.create(
+            nombre: widget.nombre.text,
+            ficha: int.parse(widget.ficha.text)
+          );
+        } catch (err) {
+          // Handle herror
+        }
+        onCreateProgram(response);
+      })();
     });
   }
   
